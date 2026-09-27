@@ -1228,12 +1228,10 @@
             } catch (e) { /* inspiration strip is non-critical, fail silently */ }
         }
 
-        // First-run onboarding. Only for signed-out newcomers; shows once per browser.
+        // First-run onboarding. Shows once, right after registration.
         if (Onboarding.start({
             key: 'spark',
-            signedIn: isLoggedIn(),
-            finishLabel: 'Create an account',
-            onDone: () => showAuthModal('signup'),
+            finishLabel: 'Get started',
             slides: [
                 { title: 'Ideas, out loud',
                   body: 'Sparkjar is a running feed of startup and project ideas. Read one, riff on it, or post your own.',

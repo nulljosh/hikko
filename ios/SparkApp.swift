@@ -14,7 +14,7 @@ struct SparkApp: App {
                     .onboarding(key: "spark",
                                 signedIn: appState.isLoggedIn,
                                 slides: sparkOnboardingSlides,
-                                finishLabel: "Create an account") { appState.showAuth = true }
+                                finishLabel: "Get started")
 
                 if showSplash {
                     SplashView()

@@ -16,7 +16,7 @@ struct SparkApp: App {
                 .onboarding(key: "spark",
                             signedIn: appState.isLoggedIn,
                             slides: sparkOnboardingSlides,
-                            finishLabel: "Create an account") { appState.showAuth = true }
+                            finishLabel: "Get started")
         }
         .windowStyle(.titleBar)
         .defaultSize(width: 900, height: 650)
