@@ -49,6 +49,7 @@ module.exports = async function handler(req, res) {
         cancel_url: ALLOWED_ORIGIN,
         client_reference_id: user.userId,
         customer_creation: 'always',
+        allow_promotion_codes: true,
       });
       return res.status(200).json({ url: session.url });
     } catch (err) {
