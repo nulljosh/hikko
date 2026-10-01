@@ -1,1 +1,1 @@
-/Users/joshua/Documents/Code/sparkjar/CLAUDE.md
+CLAUDE.md
