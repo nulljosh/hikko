@@ -149,6 +149,24 @@
     .features-grid { grid-template-columns: 1fr 1fr; }
     .steps { grid-template-columns: 1fr; }
   }
+
+/* footer directory, ported from Joshua Tree */
+footer { margin: 0; padding: 56px 0 40px; border-top: 1px solid var(--border); text-align: left; font-size: 13px; }
+footer .foot-rule { display: flex; align-items: center; gap: 16px; max-width: 880px; margin: 0 auto; padding: 0 20px 28px; font-size: 13px; letter-spacing: .06em; font-weight: 500; color: var(--text2); }
+footer .foot-rule::before { content: ""; order: 1; flex: 1; height: 1px; background: var(--border); }
+footer .foot-rule > :first-child { order: 0; }
+footer .foot-rule > :last-child { order: 2; }
+@media (max-width: 520px) { footer .foot-rule { flex-wrap: wrap; justify-content: center; gap: 10px 16px; } footer .foot-rule::before { order: -1; flex-basis: 100%; } }
+.foot-dir { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 24px; max-width: 880px; margin: 0 auto; padding: 0 20px 28px; text-align: left; }
+.foot-col h3 { margin: 0 0 8px; font-size: 12px; font-weight: 600; color: var(--text); letter-spacing: 0.02em; }
+.foot-col ul { list-style: none; margin: 0; padding: 0; }
+.foot-col a { position: relative; display: inline-block; padding: 5px 0; margin: 0; color: var(--text2); text-decoration: none; font-size: 13px; line-height: 1.35; }
+.foot-col a::after { content: ""; position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 100%; height: 44px; min-width: 44px; }
+.foot-col a:hover { color: var(--text); text-decoration: underline; }
+.foot-bar { max-width: 880px; margin: 0 auto; padding: 18px 20px 0; border-top: 1px solid var(--border); }
+.foot-bar .foot-meta { margin: 0; text-align: left; color: var(--text2); font-size: 12.5px; line-height: 1.9; }
+.foot-bar .foot-meta a { color: var(--text2); }
+@media (max-width: 700px) { .foot-dir { grid-template-columns: repeat(2, 1fr); } }
 </style>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Sparkjar">
@@ -159,7 +177,7 @@
     <meta name="twitter:title" content="Sparkjar, Where ideas become reality">
     <meta name="twitter:description" content="A feed of AI-generated startup and project ideas, voted and enriched by the crowd. Vote, comment, and turn the best ones into something real.">
   </head>
-<body>
+<body id="top">
 <header>
   <div class="header-inner">
     <a href="/" class="logo"><img src="/icon.svg" alt=""> Sparkjar</a>
@@ -333,19 +351,52 @@
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <span>&copy; 2026 Sparkjar</span>
-    <div>
-      <a href="/tos.html">Terms</a>
-      &nbsp;·&nbsp;
-      <a href="https://github.com/nulljosh/sparkjar/blob/main/docs/API.md" target="_blank" rel="noopener">API</a>
-      &nbsp;·&nbsp;
-      <a href="/app.html">Open app</a>
-      &nbsp;&middot;&nbsp;
-      <a href="https://apps.apple.com/app/id6785162492" target="_blank" rel="noopener">Mac App Store</a> &middot; <a href="https://heyitsmejosh.com/docs.html#sparkjar">Docs</a>
+  <div class="foot-rule" aria-hidden="true"><span>Sparkjar</span><span>Ideas worth keeping</span></div>
+  <nav class="foot-dir" aria-label="Footer">
+    <div class="foot-col">
+      <h3>Sparkjar</h3>
+      <ul>
+        <li><a href="https://apps.apple.com/app/id6785162492">Mac App Store</a></li>
+        <li><a href="/app.html">Open the web app</a></li>
+        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/CHANGELOG.md">Changelog</a></li>
+        <li><a href="/support.html">Support</a></li>
+      </ul>
     </div>
+    <div class="foot-col">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#install-anywhere">Install anywhere</a></li>
+        <li><a href="https://heyitsmejosh.com/docs.html#sparkjar">Docs</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h3>Developers</h3>
+      <ul>
+        <li><a href="https://github.com/nulljosh/sparkjar">Source</a></li>
+        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/docs/API.md">API reference</a></li>
+        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/docs/ARCHITECTURE.md">Architecture</a></li>
+        <li><a href="https://github.com/nulljosh/sparkjar/issues">Report a bug</a></li>
+        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/CONTRIBUTING.md">Contributing</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h3>Project</h3>
+      <ul>
+        <li><a href="/tos.html">Terms</a></li>
+        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/SECURITY.md">Security</a></li>
+        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/LICENSE">License (MIT)</a></li>
+        <li><a href="https://heyitsmejosh.com">Portfolio</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="foot-bar">
+    <p class="foot-meta">Sparkjar <span id="footver"></span> &middot; MIT License &middot; &copy; 2026 Joshua Trommel &middot; Made with <span aria-hidden="true">&hearts;</span> in Vancouver, BC</p>
   </div>
 </footer>
+<script>fetch("/package.json").then(function(r){return r.json()}).then(function(p){if(p.version)document.getElementById("footver").textContent="v"+p.version}).catch(function(){})</script>
 <script>
 // Wallpaper of real idea titles from the feed; the sample list only shows if the API is down.
 (function () {
