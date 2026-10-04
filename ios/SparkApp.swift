@@ -1,4 +1,18 @@
 import SwiftUI
+import UserNotifications
+
+// Daily 9am local nudge, matches the cron that posts the morning idea.
+enum DailyIdea {
+    static func schedule() async {
+        let center = UNUserNotificationCenter.current()
+        guard (try? await center.requestAuthorization(options: [.alert, .sound])) == true else { return }
+        let content = UNMutableNotificationContent()
+        content.title = "Today's idea just flew in"
+        content.body = "A new one is in the jar."
+        let trigger = UNCalendarNotificationTrigger(dateMatching: DateComponents(hour: 9), repeats: true)
+        try? await center.add(UNNotificationRequest(identifier: "daily-idea", content: content, trigger: trigger))
+    }
+}
 
 @main
 struct SparkApp: App {
@@ -27,6 +41,9 @@ struct SparkApp: App {
                 try? await Task.sleep(for: .seconds(1.2))
                 showSplash = false
             }
+            .task(id: appState.isLoggedIn) {
+                if appState.isLoggedIn { await DailyIdea.schedule() }
+            }
         }
     }
 }
@@ -37,17 +54,19 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            Color.sparkBlue
+            Color(hex: "0a1a33")
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Image(systemName: "lightbulb.fill")
-                    .font(.system(size: 72, weight: .light))
-                    .foregroundStyle(.white)
+                Circle()
+                    .fill(Color(hex: "f7c948"))
+                    .frame(width: 44, height: 44)
+                    .shadow(color: Color(hex: "f7c948").opacity(0.7), radius: 24)
+                    .padding(.bottom, 12)
 
-                Text("Spark")
+                Text("Hotaru")
                     .font(.system(size: 42, weight: .bold, design: .default))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color(hex: "fdfaf3"))
             }
             .scaleEffect(scale)
             .opacity(opacity)

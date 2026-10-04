@@ -44,8 +44,8 @@ targets:
       # on device as "SparkMac". "Mac" in a display name is an Apple trademark
       # violation (same rejection that hit Lexly Mac). Target/scheme/bundle ID
       # deliberately left alone — wiring, not branding.
-      INFOPLIST_KEY_CFBundleDisplayName: Sparkjar
-      PRODUCT_NAME: Sparkjar
+      INFOPLIST_KEY_CFBundleDisplayName: Hotaru
+      PRODUCT_NAME: Hotaru
     entitlements:
       path: SparkMac.entitlements
       properties:
