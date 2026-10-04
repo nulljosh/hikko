@@ -280,7 +280,8 @@ struct PostCard: View {
             }
         }
         .padding(14)
-        .background(Color.paper2, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.card, in: RoundedRectangle(cornerRadius: 16))
+        .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(Color.hairline))
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(post.title) by \(post.author?.username ?? "unknown"), \(post.score) votes, \(post.category)")
     }
@@ -902,6 +903,8 @@ extension Color {
     // ponytail: sparkBlue keeps its old name, it is the clay accent now.
     static let sparkBlue = Color(light: "b5502c", dark: "e07856")
     static let paper = Color(light: "fafaf8", dark: "1c1a17")
+    static let card = Color(light: "ffffff", dark: "26231f")
+    static let hairline = Color(light: "e4e2dc", dark: "35312b")
     static let paper2 = Color(light: "f0efec", dark: "26231f")
     static let bulb = sparkBlue
     static let onAccent = Color(light: "ffffff", dark: "1c1a17")
