@@ -18,12 +18,12 @@ struct ContentView: View {
             CreateView(selectedTab: $selectedTab)
                 .tabItem { Label("Create", systemImage: selectedTab == 1 ? "plus.circle.fill" : "plus.circle") }
                 .tag(1)
-            ProfileView()
-                .tabItem { Label("Profile", systemImage: selectedTab == 2 ? "person.circle.fill" : "person.circle") }
-                .tag(2)
             IdeaBaseView()
                 .tabItem { Label("Ideas", systemImage: selectedTab == 3 ? "lightbulb.fill" : "lightbulb") }
                 .tag(3)
+            ProfileView()
+                .tabItem { Label("Profile", systemImage: selectedTab == 2 ? "person.circle.fill" : "person.circle") }
+                .tag(2)
         }
         .tint(.sparkBlue)
         .onChange(of: selectedTab) { _, _ in
@@ -152,7 +152,7 @@ struct FeedView: View {
                 }
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("Spark")
+            .navigationTitle("Hotaru")
             .searchable(text: $searchText, prompt: "Search posts")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
