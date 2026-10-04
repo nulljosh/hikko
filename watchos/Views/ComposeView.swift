@@ -83,6 +83,7 @@ struct ComposeView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(Color.sparkBlue)
+                    .foregroundStyle(Color(red: 0.11, green: 0.10, blue: 0.09))
                     .disabled(!canPost)
                     .padding(.top, 4)
                 }
