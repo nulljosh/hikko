@@ -70,7 +70,7 @@ struct AuthSheet: View {
                         Text(tab == 0 ? "Sign In" : "Create Account")
                     }
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(PrimaryButtonStyle())
                 .tint(.sparkBlue)
                 .disabled(!canSubmit)
                 .keyboardShortcut(.defaultAction)

@@ -72,7 +72,7 @@ struct IdeaBaseView: View {
                             if isCreating { ProgressView().controlSize(.small) }
                             else { Text("Generate").fontWeight(.semibold) }
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(PrimaryButtonStyle())
                         .tint(.sparkBlue)
                         .disabled(topic.trimmingCharacters(in: .whitespaces).isEmpty || isCreating || !appState.isLoggedIn)
                         Spacer()

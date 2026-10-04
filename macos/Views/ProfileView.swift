@@ -94,7 +94,7 @@ struct ProfileView: View {
                     Button("Sign In / Register") {
                         appState.showAuth = true
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(PrimaryButtonStyle())
                     .tint(.sparkBlue)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

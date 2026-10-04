@@ -29,7 +29,7 @@ struct CreateView: View {
                 Button("Sign In") {
                     appState.showAuth = true
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(PrimaryButtonStyle())
                 .tint(.sparkBlue)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -87,7 +87,7 @@ struct CreateView: View {
                                     .fontWeight(.semibold)
                             }
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(PrimaryButtonStyle())
                         .tint(.sparkBlue)
                         .controlSize(.large)
                         .disabled(!canPost)

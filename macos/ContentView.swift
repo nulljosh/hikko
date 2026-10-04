@@ -107,8 +107,11 @@ struct ErrorBanner: View {
 // MARK: - Color Extension
 
 extension Color {
-    // ponytail: old name kept, value is the house terracotta accent (shared with the landing)
-    static let sparkBlue = Color(hex: "b5502c")
+    // ponytail: old name kept, value is the firefly gold accent (text gold in light, bulb in dark)
+    static let sparkBlue = Color(nsColor: NSColor(name: nil) { a in
+        a.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(srgbRed: 1, green: 0.792, blue: 0.188, alpha: 1) : NSColor(srgbRed: 0.541, green: 0.392, blue: 0.071, alpha: 1)
+    })
+    static let bulb = Color(hex: "ffca30")
 
     init(hex: String) {
         let scanner = Scanner(string: hex)
@@ -119,6 +122,21 @@ extension Color {
             green: Double((rgb >> 8) & 0xFF) / 255,
             blue: Double(rgb & 0xFF) / 255
         )
+    }
+}
+
+// The primary action everywhere: flat firefly gold, warm ink label, same as iOS and the landing.
+struct PrimaryButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.body.weight(.semibold))
+            .foregroundStyle(Color(hex: "1c1a17"))
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(Color.bulb.opacity(isEnabled ? 1 : 0.4), in: Capsule())
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
     }
 }
 

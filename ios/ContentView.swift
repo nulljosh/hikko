@@ -198,13 +198,13 @@ struct FeedView: View {
                             .padding(.vertical, 8)
                             .background {
                                 if selected {
-                                    Capsule().fill(Color.sparkBlue)
+                                    Capsule().fill(Color.bulb)
                                         .matchedGeometryEffect(id: "chip", in: chipNamespace)
                                 } else {
                                     Capsule().fill(Color.secondary.opacity(0.12))
                                 }
                             }
-                            .foregroundStyle(selected ? .white : .primary)
+                            .foregroundStyle(selected ? Color(hex: "1c1a17") : .primary)
                             .symbolEffect(.bounce, value: selected)
                     }
                     .buttonStyle(.plain)
@@ -413,7 +413,7 @@ struct CreateView: View {
                         Text("Create an account or log in to share ideas.")
                     } actions: {
                         Button("Sign In") { appState.showAuth = true }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(PrimaryButtonStyle())
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.paper)
@@ -552,7 +552,7 @@ struct ProfileView: View {
                             Button("Sign In / Register") {
                                 appState.showAuth = true
                             }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(PrimaryButtonStyle())
                             .tint(.sparkBlue)
                             .accessibilityIdentifier("signin_button")
                         }
@@ -688,7 +688,7 @@ struct AuthSheet: View {
                             .fontWeight(.semibold)
                     }
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(PrimaryButtonStyle())
                 .tint(.sparkBlue)
                 .controlSize(.large)
                 .disabled(!canSubmit)
@@ -848,6 +848,22 @@ struct BadgeLabelStyle: LabelStyle {
     }
 }
 
+// The primary action everywhere: flat firefly gold, warm ink label, same as the landing.
+struct PrimaryButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.body.weight(.semibold))
+            .foregroundStyle(Color(hex: "1c1a17"))
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .background(Color.bulb.opacity(isEnabled ? 1 : 0.4), in: Capsule())
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(.spring(duration: 0.25), value: configuration.isPressed)
+    }
+}
+
 // Cards sink a little under the finger.
 struct PressableStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -884,7 +900,7 @@ struct FireflyLoader: View {
 extension Color {
     // House palette, same values as heyitsmejosh.com/tokens.css (Orchard).
     // ponytail: sparkBlue keeps its old name, it is the clay accent now.
-    static let sparkBlue = Color(light: "b3461f", dark: "e07856")
+    static let sparkBlue = Color(light: "8a6412", dark: "ffca30")
     static let paper = Color(light: "f5f0e4", dark: "1c1a17")
     static let paper2 = Color(light: "ebe4d3", dark: "26231f")
     static let bulb = Color(hex: "ffca30")

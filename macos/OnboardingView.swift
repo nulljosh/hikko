@@ -67,7 +67,7 @@ struct OnboardingView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(PrimaryButtonStyle())
                 .buttonBorderShape(.capsule)
 
                 Button("Skip", action: onSkip)

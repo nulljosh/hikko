@@ -47,7 +47,7 @@ struct WhatsNewSheet: View {
                         Text("Got it")
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(PrimaryButtonStyle())
                     .controlSize(.large)
                     .tint(.sparkBlue)
                 }

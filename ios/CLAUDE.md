@@ -3,7 +3,7 @@ v2.2.0
 ## Rules
 - Portrait-only, UIRequiresFullScreen
 - Apple Liquid Glass: .ultraThinMaterial, blur, rounded corners, system font
-- Accent: #b5502c terracotta (house accent, matches the landing)
+- Palette from the logo: warm ink #1c1a17, cream #f5f0e4, firefly gold #ffca30 (text gold #8a6412 in light). Primary buttons use PrimaryButtonStyle.
 - No emojis
 - Error banner system for auth and API failures
 - Optimistic voting with debounce and error revert
