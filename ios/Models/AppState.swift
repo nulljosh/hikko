@@ -82,6 +82,8 @@ final class AppState {
     func handleAppleSignIn(result: Result<ASAuthorization, Error>) async {
         switch result {
         case .failure(let err):
+            // Closing Apple's sheet is a choice, not an error.
+            if (err as? ASAuthorizationError)?.code == .canceled { return }
             error = err.localizedDescription
         case .success(let auth):
             guard let cred = auth.credential as? ASAuthorizationAppleIDCredential else { return }
