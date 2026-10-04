@@ -102,3 +102,20 @@ describe('password reset tells the truth when it cannot send', () => {
     expect(state.body.message).toMatch(/if an account exists/i);
   });
 });
+
+describe('generate repeat guard', () => {
+  const recent = [
+    'Shared grocery budget tracker for roommates',
+    'Shared credit card tracker for roommates',
+    'Recycling guide for local bins'
+  ];
+  it('rejects a title that reuses half the words of a recent one', () => {
+    expect(ai.tooSimilar('Shared car maintenance tracker for roommates', recent)).toBe(true);
+  });
+  it('rejects a third title with the same opening word', () => {
+    expect(ai.tooSimilar('Shared recycling bin tracker for apartment complexes', recent)).toBe(true);
+  });
+  it('lets a new idea through', () => {
+    expect(ai.tooSimilar('Voice memos that organize themselves', recent)).toBe(false);
+  });
+});

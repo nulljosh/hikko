@@ -43,6 +43,23 @@ function parseJsonish(text) {
 
 // --- generate (cron: post one AI idea) ---
 
+const words = t => new Set(String(t).toLowerCase().match(/[a-z0-9]+/g) || []);
+
+// A repeat is a title sharing half its words with a recent one, or opening
+// with a word two recent titles already open with.
+function tooSimilar(title, recentTitles) {
+  const mine = words(title);
+  const first = String(title).trim().split(/\s+/)[0].toLowerCase();
+  let sameOpening = 0;
+  for (const other of recentTitles) {
+    const theirs = words(other);
+    const shared = [...mine].filter(w => theirs.has(w)).length;
+    if (shared / (mine.size + theirs.size - shared) >= 0.5) return true;
+    if (String(other).trim().split(/\s+/)[0].toLowerCase() === first) sameOpening++;
+  }
+  return sameOpening >= 2;
+}
+
 const GEN_CATEGORIES = ['tech', 'productivity', 'finance', 'health', 'sustainability'];
 
 async function handleGenerate(req, res) {
@@ -53,20 +70,31 @@ async function handleGenerate(req, res) {
   const isDaemon = process.env.SPARK_DAEMON_SECRET && auth === 'Bearer ' + process.env.SPARK_DAEMON_SECRET;
   if (!isCron && !isDaemon) return res.status(401).json({ error: 'Unauthorized' });
 
-  const category = GEN_CATEGORIES[Math.floor(Math.random() * GEN_CATEGORIES.length)];
   const recent = await supabaseRequest('posts?select=title&order=created_at.desc&limit=20');
-  const recentTitles = (Array.isArray(recent) ? recent : []).map(r => '- ' + r.title).join('\n');
+  const titles = (Array.isArray(recent) ? recent : []).map(r => r.title);
+  const recentTitles = titles.map(t => '- ' + t).join('\n');
 
-  const text = await callGemma(
-    `You generate one startup/app idea for an idea-sharing board. Category: ${category}.\n` +
-    `Style: concrete, everyday problem, plain language, no buzzwords. Like these existing posts (do NOT duplicate any):\n${recentTitles}\n\n` +
-    `Reply with ONLY valid JSON, no markdown fences: {"title": "...", "content": "2-3 sentence description"}`
-  );
+  // The model copies the shape of whatever it is shown ("Shared X tracker for
+  // roommates", five days running), so a rejected draft gets another try in a
+  // fresh category. Three misses post nothing: a quiet day beats a repeat.
+  let idea, category, text;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    category = GEN_CATEGORIES[Math.floor(Math.random() * GEN_CATEGORIES.length)];
+    text = await callGemma(
+      `You generate one startup/app idea for an idea-sharing board. Category: ${category}.\n` +
+      `Style: concrete, everyday problem, plain language, no buzzwords.\n` +
+      `These are already posted. Pick a different problem, a different audience and a different first word:\n${recentTitles}\n\n` +
+      `Reply with ONLY valid JSON, no markdown fences: {"title": "...", "content": "2-3 sentence description"}`
+    );
+    idea = parseJsonish(text);
+    if (idea && idea.title && idea.content && !tooSimilar(idea.title, titles)) break;
+    if (idea && idea.title && idea.content) idea = { repeat: idea.title };
+  }
 
   // 422, not 502: Cloudflare's edge swallows a 5xx body and serves its own
   // error page, which hid this failure entirely the first time it happened.
-  const idea = parseJsonish(text);
   if (!idea) return res.status(422).json({ error: 'Model returned unparseable idea', raw: text.slice(0, 300) });
+  if (idea.repeat) return res.status(422).json({ error: 'Idea too close to a recent post', raw: idea.repeat });
   if (!idea.title || !idea.content) return res.status(422).json({ error: 'Incomplete idea', raw: text.slice(0, 300) });
 
   const rows = await supabaseRequest('posts', {
@@ -289,3 +317,4 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+module.exports.tooSimilar = tooSimilar;

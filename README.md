@@ -2,7 +2,7 @@
 
 # Hikko
 
-![version](https://img.shields.io/badge/version-v2.2.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) [![GitHub](https://img.shields.io/badge/GitHub-nulljosh%2Fsparkjar-black?logo=github)](https://github.com/nulljosh/hikko)
+![version](https://img.shields.io/badge/version-v3.0.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) [![GitHub](https://img.shields.io/badge/GitHub-nulljosh%2Fhikko-black?logo=github)](https://github.com/nulljosh/hikko)
 
 A jar of ideas. Post one, vote on others, and every morning a new one shows up on its own.
 
@@ -16,9 +16,9 @@ Each idea gets turned into a build spec and a step-by-step plan, server-side. Up
 
 | Platform | Version | Status |
 |---|---|---|
-| Web (PWA) | v2.2.0 | Live |
-| iOS | 1.0 | Submitted: waiting for review |
-| macOS | 1.0.1 | [Live on the Mac App Store](https://apps.apple.com/app/id6785162492) |
+| Web (PWA) | v3.0.0 | Live |
+| iOS | 1.0.1 | [Live on the App Store](https://apps.apple.com/app/id6785162492). 3.0 waiting for review |
+| macOS | 1.0.2 | [Live on the Mac App Store](https://apps.apple.com/app/id6785162492). 3.0 waiting for review |
 | watchOS | v1.0.0 | Bundled with iOS |
 
 <img src="screenshots/ios/01-feed.jpg" width="240">

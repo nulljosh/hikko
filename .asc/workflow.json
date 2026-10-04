@@ -1,5 +1,5 @@
 {
-  // Spark release automation. Run: asc workflow run ship-ios VERSION:2.2.0
+  // Spark release automation. Run: asc workflow run ship-ios VERSION:3.0
   "env": {
     "IOS_APP_ID": "6785162492",
     "MAC_APP_ID": "6785162492",

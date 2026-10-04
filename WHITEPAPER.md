@@ -1,6 +1,6 @@
 # Hikko Technical Whitepaper
 
-**v2.2.0 web / 1.0 iOS / 1.0 macOS** | August 2026
+**v3.0** | October 2026
 
 A jar of ideas.
 
@@ -51,9 +51,9 @@ ideas, and the frontend falls back to seed data if Supabase is unreachable.
 
 | Platform | Version | Status |
 |---|---|---|
-| Web (PWA) | v2.2.0 | Live on Cloudflare Pages |
-| iOS | v1.0 | Live on the App Store |
-| macOS | v1.0 | Live on the App Store |
+| Web (PWA) | v3.0.0 | Live on Cloudflare Pages |
+| iOS | v1.0.1 | Live on the App Store. 3.0 waiting for review |
+| macOS | v1.0.2 | Live on the App Store. 3.0 waiting for review |
 | watchOS | v1.0 | Bundled with iOS |
 
 ## Security

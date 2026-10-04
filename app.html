@@ -1253,7 +1253,7 @@
             ]
         })) {
             // A brand new visitor has no "what's new" to catch up on.
-            try { localStorage.setItem('spark_whats_new_seen', '2.2.0'); } catch (e) {}
+            try { localStorage.setItem('spark_whats_new_seen', '3.0.0'); } catch (e) {}
         }
 
         // Initialize
@@ -1268,7 +1268,7 @@
 
         // What's New modal
         (function() {
-            const KEY = 'spark_whats_new_seen', VER = '2.2.0';
+            const KEY = 'spark_whats_new_seen', VER = '3.0.0';
             if (localStorage.getItem(KEY) !== VER) {
                 const m = document.getElementById('whats-new-modal');
                 m.classList.add('show');
@@ -1278,7 +1278,7 @@
             }
         })();
         function dismissWhatsNew() {
-            localStorage.setItem('spark_whats_new_seen', '2.2.0');
+            localStorage.setItem('spark_whats_new_seen', '3.0.0');
             document.getElementById('whats-new-modal').classList.remove('show');
         }
 
@@ -1293,12 +1293,11 @@
     <div class="modal" id="whats-new-modal">
         <div class="modal-box">
             <span class="close" onclick="dismissWhatsNew()">&times;</span>
-            <h2>What's New in v2.2.0</h2>
+            <h2>What's New in v3.0</h2>
             <ul>
-                <li>GitHub Sign In / Sign Up</li>
-                <li>Terms of Service on registration</li>
-                <li>AI-powered idea enrichment daemon</li>
-                <li>Notifications &amp; comments</li>
+                <li>Sparkjar is now Hikko. Same jar, new name</li>
+                <li>A cleaner look: plain paper and one warm accent</li>
+                <li>The daily idea stops repeating itself</li>
             </ul>
             <button class="btn" onclick="dismissWhatsNew()">Got it</button>
         </div>

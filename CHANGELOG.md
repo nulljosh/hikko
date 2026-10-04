@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-10-04
+
+- Sparkjar is now Hikko: app name, icon label, site (hikko.heyitsmejosh.com), repo.
+- New palette on every platform: near-white paper, warm ink, one terracotta accent.
+- Feed cards are white with a hairline border on iOS and the web.
+- macOS picks up the accent colour in the sidebar and controls.
+- The daily idea generator rejects near-repeats of recent posts.
+
 - feat: one theme across the whole site. New shared `theme.js` owns the
   `spark_theme` preference, stamps `data-theme` on `<html>` before first paint,
   and keeps every page, tab, and the browser chrome in step.
