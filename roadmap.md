@@ -4,10 +4,6 @@
 
 iOS finally cleared Apple review after weeks of back-and-forth on the 4.3(a) wave. Forum concept: idea generator with eventual IP protection / law integration, users build ideas together with copyright + trademark hooks (ties into the exploratory "self-regulating idea forum" note above).
 
-- [ ] Icon + app name redesign, feeds into landing page refresh too
-- [ ] UI pass, current screens are barebones/placeholder-looking
-- [ ] Custom nav bar is unreliable on touch, taps sometimes don't register. Pattern repeats across multiple apps ("we've been wrestling with it for months") -- consider falling back to native TabView/UITabBar instead of continuing to patch the custom one. Worth a fleet-wide look, not just Sparkjar.
-
 ## 2026-09-09, iOS 1.0 approved and live on App Store
 
 The 4.3(a) appeal filed 2026-08-27 was approved. iOS 1.0 is now available on the App Store.
@@ -18,8 +14,6 @@ Posted 12 ideas as user "josh" (password in macOS Keychain), each enriched with 
 Tripwire for App Store review, furnish-an-apartment from Craigslist, breathe-to-dream-journal handoff, feng shui listing score, etymology language learning, daily security kata, lost-pet sightings from classifieds, "have I written this before" browser button, embeddable calculators, pizza price index, FOI response decoder, branded auth emails worker.
 
 **Open item:** AI feed's daily generate prompt is producing near-duplicates; five days running of "shared household X" variants. Fix: pass the last 20 idea titles into the prompt as an avoid-list to reduce repetition.
-
-- [ ] Implement avoid-list in `api/ai.js` generate endpoint to reduce duplicates in daily generation
 
 ## 2026-09-06, iOS 1.0 4.3(a) reply filed (headless)
 Hold lifted: email works since 09-02 and macOS 1.0.1 is live. Posted the 4.3(a) reply via iris Resolution Center endpoints (see memory `asc-resolution-center-headless`). Do not resubmit; wait for Apple.
