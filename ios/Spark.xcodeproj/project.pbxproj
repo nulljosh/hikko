@@ -39,7 +39,6 @@
 		8A40C4860A39DB3D05CDB27B /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A548771F89593961D51C0506 /* SnapshotHelper.swift */; };
 		9D84EC6BF517652D89BFE2E5 /* OnboardingSlides.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4308A0987F426DADB6E8D97 /* OnboardingSlides.swift */; };
 		9F9F7726F543B6313CE1A5BF /* PreviewScreenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF0680CE0AA4A14B68BFE5 /* PreviewScreenshot.swift */; };
-		A4AF77286922A3F3F7B7D679 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 942F904930D3F346344AB231 /* ExportOptions.plist */; };
 		B45EEEB0763CE5F9E10D504E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38B305B02C1805F1432B0604 /* Assets.xcassets */; };
 		BD2E236DE4521AB57EE48AB1 /* CommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B965FAC4CDC7FEF516075210 /* CommentTests.swift */; };
 		C3308327E1F1154C3173124A /* VotingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898137529EC29A57F6260C07 /* VotingTests.swift */; };
@@ -127,7 +126,6 @@
 		898137529EC29A57F6260C07 /* VotingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingTests.swift; sourceTree = "<group>"; };
 		8C29F6CD9F1775D89699528F /* NewPostsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostsProvider.swift; sourceTree = "<group>"; };
 		93D5DF75DDDFC297BA58F06B /* HotPostsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotPostsProvider.swift; sourceTree = "<group>"; };
-		942F904930D3F346344AB231 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = ExportOptions.plist; sourceTree = "<group>"; };
 		A548771F89593961D51C0506 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		A95B026567C272F91FC1DB10 /* SparkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkApp.swift; sourceTree = "<group>"; };
 		B888EDFCBF793441DF737D48 /* UserProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTests.swift; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 				DEDE7FBC9391B3EC90CE2136 /* .swiftlint.yml */,
 				7C960C5A9D0E4A37C066CE8E /* Assets.xcassets */,
 				255A33F3F797DB0BCEA702E8 /* ContentView.swift */,
-				942F904930D3F346344AB231 /* ExportOptions.plist */,
 				6A9AC5F477D30E64C39B5538 /* Info.plist */,
 				C4308A0987F426DADB6E8D97 /* OnboardingSlides.swift */,
 				2CB87699679AAE45874D82B6 /* OnboardingView.swift */,
@@ -443,7 +440,6 @@
 			files = (
 				FB8C3417091AAAFBD8BC6402 /* .swiftlint.yml in Resources */,
 				3AA8B6E58C3E58DFFB03C361 /* Assets.xcassets in Resources */,
-				A4AF77286922A3F3F7B7D679 /* ExportOptions.plist in Resources */,
 				08125EF0204EB82912058BF8 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
