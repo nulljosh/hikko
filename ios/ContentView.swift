@@ -204,7 +204,7 @@ struct FeedView: View {
                                     Capsule().fill(Color.secondary.opacity(0.12))
                                 }
                             }
-                            .foregroundStyle(selected ? Color(hex: "1c1a17") : .primary)
+                            .foregroundStyle(selected ? Color.onAccent : .primary)
                             .symbolEffect(.bounce, value: selected)
                     }
                     .buttonStyle(.plain)
@@ -848,14 +848,14 @@ struct BadgeLabelStyle: LabelStyle {
     }
 }
 
-// The primary action everywhere: flat firefly gold, warm ink label, same as the landing.
+// The primary action everywhere: flat terracotta, white label (ink in dark), same as the landing.
 struct PrimaryButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.body.weight(.semibold))
-            .foregroundStyle(Color(hex: "1c1a17"))
+            .foregroundStyle(Color.onAccent)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
             .background(Color.bulb.opacity(isEnabled ? 1 : 0.4), in: Capsule())
@@ -900,11 +900,12 @@ struct FireflyLoader: View {
 extension Color {
     // House palette, same values as heyitsmejosh.com/tokens.css (Orchard).
     // ponytail: sparkBlue keeps its old name, it is the clay accent now.
-    static let sparkBlue = Color(light: "8a6412", dark: "ffca30")
-    static let paper = Color(light: "f5f0e4", dark: "1c1a17")
-    static let paper2 = Color(light: "ebe4d3", dark: "26231f")
-    static let bulb = Color(hex: "ffca30")
-    static let bulbDeep = Color(light: "8a6412", dark: "ffca30")
+    static let sparkBlue = Color(light: "b5502c", dark: "e07856")
+    static let paper = Color(light: "fafaf8", dark: "1c1a17")
+    static let paper2 = Color(light: "f0efec", dark: "26231f")
+    static let bulb = sparkBlue
+    static let onAccent = Color(light: "ffffff", dark: "1c1a17")
+    static let bulbDeep = sparkBlue
 
     init(light: String, dark: String) {
         self.init(UIColor { $0.userInterfaceStyle == .dark ? UIColor(Color(hex: dark)) : UIColor(Color(hex: light)) })

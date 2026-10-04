@@ -3,7 +3,7 @@ v2.2.0
 ## Rules
 - Portrait-only, UIRequiresFullScreen
 - Apple Liquid Glass: .ultraThinMaterial, blur, rounded corners, system font
-- Palette from the logo: warm ink #1c1a17, cream #f5f0e4, firefly gold #ffca30 (text gold #8a6412 in light). Primary buttons use PrimaryButtonStyle.
+- Palette: paper #fafaf8, warm ink #1c1a17, one accent terracotta #b5502c (#e07856 in dark). No cream, no yellow. Primary buttons use PrimaryButtonStyle.
 - No emojis
 - Error banner system for auth and API failures
 - Optimistic voting with debounce and error revert

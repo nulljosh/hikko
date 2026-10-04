@@ -25,7 +25,7 @@
         /* Hotaru palette: the logo and heyitsmejosh.com/tokens.css. */
         :root[data-theme="dark"] {
             --bg: #1c1a17;
-    --link: #ffca30;
+    --link: #e07856;
             --text: #f3ede0;
             --surface: #26231f;
             --surface2: #2f2b26;
@@ -34,21 +34,21 @@
             --text3: rgba(243,237,224,0.34);
             --text-secondary: rgba(243,237,224,0.6);
             --border: #3a352e;
-            --accent: #ffca30;
+            --accent: #e07856;
             --modal-bg: rgba(0,0,0,0.75);
         }
         :root[data-theme="light"] {
-            --bg: #f5f0e4;
-    --link: #8a6412;
+            --bg: #fafaf8;
+    --link: #b5502c;
             --text: #1f1b16;
-            --surface: #ebe4d3;
-            --surface2: #e3dac6;
-            --surface3: #d9cfb8;
+            --surface: #f0efec;
+            --surface2: #e8e6e1;
+            --surface3: #dedcd5;
             --text2: rgba(31,27,22,0.6);
             --text3: rgba(31,27,22,0.34);
             --text-secondary: rgba(31,27,22,0.6);
-            --border: #dcd2bd;
-            --accent: #8a6412;
+            --border: #e4e2dc;
+            --accent: #b5502c;
             --modal-bg: rgba(31,27,22,0.45);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -171,20 +171,20 @@
         .tag-pill.selected { color: #fff; border-color: transparent; }
         .tag-pill[data-tag="tech"].selected { background: #1c1a17; }
         .tag-pill[data-tag="design"].selected { background: #4f6b34; }
-        .tag-pill[data-tag="business"].selected { background: #8a6412; }
+        .tag-pill[data-tag="business"].selected { background: #b5502c; }
         .tag-pill[data-tag="random"].selected { background: #9e3b1f; }
         .post-tags { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
         .post-tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; color: #fff; }
         .post-tag.tag-tech { background: #1c1a17; }
         .post-tag.tag-design { background: #4f6b34; }
-        .post-tag.tag-business { background: #8a6412; }
+        .post-tag.tag-business { background: #b5502c; }
         .post-tag.tag-random { background: #9e3b1f; }
 
         /* Tag filter bar */
         .tag-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
         .tag-filter-btn { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); transition: all 0.15s; }
         .tag-filter-btn:hover { border-color: var(--text3); }
-        .tag-filter-btn.active { background: #ffca30; color: #1c1a17; border-color: transparent; }
+        .tag-filter-btn.active { background: var(--accent); color: var(--bg); border-color: transparent; }
 
         .idea { cursor: pointer; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .idea:hover { transform: translateY(-2px); }
@@ -256,12 +256,12 @@
             background: var(--surface2);
             border-color: var(--link, var(--accent));
         }
-        /* Selected chips glow like the landing's primary button: firefly gold on ink. */
+        /* Selected chips match the landing's primary button: flat terracotta. */
         .filter-btn.active, .sort-btn.active {
-            background: #ffca30;
+            background: var(--accent);
             backdrop-filter: blur(10px);
-            border-color: #ffca30;
-            color: #1c1a17;
+            border-color: var(--accent);
+            color: var(--bg);
         }
         /* Apple Liquid Glass -- post cards */
         .post {

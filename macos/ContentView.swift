@@ -107,11 +107,14 @@ struct ErrorBanner: View {
 // MARK: - Color Extension
 
 extension Color {
-    // ponytail: old name kept, value is the firefly gold accent (text gold in light, bulb in dark)
+    // ponytail: old name kept, value is the terracotta accent (#b5502c light, #e07856 dark)
     static let sparkBlue = Color(nsColor: NSColor(name: nil) { a in
-        a.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(srgbRed: 1, green: 0.792, blue: 0.188, alpha: 1) : NSColor(srgbRed: 0.541, green: 0.392, blue: 0.071, alpha: 1)
+        a.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(srgbRed: 0.878, green: 0.471, blue: 0.337, alpha: 1) : NSColor(srgbRed: 0.710, green: 0.314, blue: 0.173, alpha: 1)
     })
-    static let bulb = Color(hex: "ffca30")
+    static let bulb = sparkBlue
+    static let onAccent = Color(nsColor: NSColor(name: nil) { a in
+        a.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(srgbRed: 0.11, green: 0.10, blue: 0.09, alpha: 1) : .white
+    })
 
     init(hex: String) {
         let scanner = Scanner(string: hex)
@@ -125,14 +128,14 @@ extension Color {
     }
 }
 
-// The primary action everywhere: flat firefly gold, warm ink label, same as iOS and the landing.
+// The primary action everywhere: flat terracotta, same as iOS and the landing.
 struct PrimaryButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.body.weight(.semibold))
-            .foregroundStyle(Color(hex: "1c1a17"))
+            .foregroundStyle(Color.onAccent)
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
             .background(Color.bulb.opacity(isEnabled ? 1 : 0.4), in: Capsule())
