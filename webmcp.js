@@ -1,4 +1,4 @@
-// WebMCP tool registration for Sparkjar. Exposes the idea board to in-browser
+// WebMCP tool registration for Hotaru. Exposes the idea board to in-browser
 // agents via document.modelContext.
 //
 // ponytail: tools call the same /api routes app.html calls, with the same

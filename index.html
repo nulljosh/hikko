@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#111">
 <script src="/theme.js"></script>
-<title>Sparkjar, Where ideas become reality</title>
+<title>Hotaru, Catch ideas before they fly away</title>
 <meta name="description" content="A feed of AI-generated startup and project ideas, voted and enriched by the crowd. Vote, comment, and turn the best ones into something real.">
-<meta property="og:title" content="Sparkjar, Where ideas become reality">
+<meta property="og:title" content="Hotaru, Catch ideas before they fly away">
 <meta property="og:description" content="A feed of AI-generated startup and project ideas, voted and enriched by the crowd. Vote, comment, and turn the best ones into something real.">
-<meta property="og:url" content="https://sparkjar.heyitsmejosh.com">
-<meta property="og:image" content="https://sparkjar.heyitsmejosh.com/og.png">
+<meta property="og:url" content="https://hotaru.heyitsmejosh.com">
+<meta property="og:image" content="https://hotaru.heyitsmejosh.com/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://sparkjar.heyitsmejosh.com/og.png">
+<meta name="twitter:image" content="https://hotaru.heyitsmejosh.com/og.png">
   <meta name="apple-itunes-app" content="app-id=6785162492">
 <link rel="apple-touch-icon" href="/icon-192.svg">
 <link rel="icon" href="/icon.svg">
@@ -28,7 +28,7 @@
     --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   /* Palette comes from the shared tokens (orchard edition). Only the few
-     Sparkjar-specific names are mapped here, so both themes follow it. */
+     Hotaru-specific names are mapped here, so both themes follow it. */
   :root {
     --link: var(--clay-deep, var(--accent));
     --header-bg: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -124,6 +124,9 @@
   .section-head { max-width: 480px; margin: 0 auto 3rem; text-align: center; }
   .section-head h2 { font-size: 2rem; }
 
+  .fly { position:absolute; width:8px; height:8px; border-radius:50%; background:#f7c948; box-shadow:0 0 14px 5px rgba(247,201,72,.55); opacity:0; animation: fly 9s ease-in-out infinite; pointer-events:none; }
+  @keyframes fly { 0%,100% { opacity:0; transform:translate(0,0); } 30%,60% { opacity:.9; } 50% { transform:translate(24px,-30px); } }
+  @media (prefers-reduced-motion: reduce) { .fly { animation:none; opacity:.6; } }
   .icon-tile { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-tint); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--link, var(--accent)); font-size: 1.25rem; }
 
   .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
@@ -169,31 +172,31 @@ footer .foot-rule > :last-child { order: 2; }
 @media (max-width: 700px) { .foot-dir { grid-template-columns: repeat(2, 1fr); } }
 </style>
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Sparkjar">
-    <meta property="og:title" content="Sparkjar, Where ideas become reality">
+    <meta property="og:site_name" content="Hotaru">
+    <meta property="og:title" content="Hotaru, Catch ideas before they fly away">
     <meta property="og:description" content="A feed of AI-generated startup and project ideas, voted and enriched by the crowd. Vote, comment, and turn the best ones into something real.">
-    <meta property="og:url" content="https://sparkjar.heyitsmejosh.com/">
+    <meta property="og:url" content="https://hotaru.heyitsmejosh.com/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Sparkjar, Where ideas become reality">
+    <meta name="twitter:title" content="Hotaru, Catch ideas before they fly away">
     <meta name="twitter:description" content="A feed of AI-generated startup and project ideas, voted and enriched by the crowd. Vote, comment, and turn the best ones into something real.">
   </head>
 <body id="top">
 <header>
   <div class="header-inner">
-    <a href="/" class="logo"><img src="/icon.svg" alt=""> Sparkjar</a>
+    <a href="/" class="logo"><img src="/icon.svg" alt=""> Hotaru</a>
     <nav class="main-nav">
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
     </nav>
     <div class="header-right">
       <button class="theme-btn" data-theme-toggle type="button" title="Switch to light mode" aria-label="Switch to light mode">&#9790;</button>
-      <a href="/app.html" class="header-cta">Open Sparkjar</a>
+      <a href="/app.html" class="header-cta">Open Hotaru</a>
     </div>
   </div>
 </header>
 
 <div class="hero">
-  <div class="hero-wall" id="heroWall" aria-hidden="true"></div>
+  <div class="hero-wall" id="heroWall" aria-hidden="true"><i class="fly" style="left:12%;top:30%;animation-delay:0s"></i><i class="fly" style="left:28%;top:70%;animation-delay:2.2s"></i><i class="fly" style="left:46%;top:22%;animation-delay:4.1s"></i><i class="fly" style="left:63%;top:64%;animation-delay:1.3s"></i><i class="fly" style="left:78%;top:28%;animation-delay:5.5s"></i><i class="fly" style="left:90%;top:58%;animation-delay:3.2s"></i></div>
   <script>
   (function(){
     var wall=document.getElementById('heroWall'),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,ticking=false;
@@ -203,9 +206,9 @@ footer .foot-rule > :last-child { order: 2; }
   })();
   </script>
   <div class="hero-copy">
-    <div class="eyebrow">Idea forum</div>
-    <h1>Where ideas become reality</h1>
-    <p>A live feed of startup and project ideas, AI-generated, then voted, commented, and enriched by real people. Upvote what's worth building.</p>
+    <div class="eyebrow">Hotaru, the firefly jar</div>
+    <h1>Catch ideas before they fly away</h1>
+    <p>A jar of ideas that glows. A new one flies in every morning, grows a build spec and a plan, and the best ones rise when you vote.</p>
     <div class="hero-actions">
       <a href="/app.html" class="btn btn-primary">Browse the feed</a>
       <a href="/app.html" class="btn btn-secondary">Sign up free</a>
@@ -216,7 +219,7 @@ footer .foot-rule > :last-child { order: 2; }
 
 <section id="features">
   <div class="section-head">
-    <div class="eyebrow">Why Sparkjar</div>
+    <div class="eyebrow">Why Hotaru</div>
     <h2>Built for finding the next thing</h2>
   </div>
   <div class="features-grid">
@@ -253,8 +256,8 @@ footer .foot-rule > :last-child { order: 2; }
        it to the light capture the moment the toggle flips, so the phone is
        never showing the theme the page isn't in. -->
   <!-- the real app, not a screenshot: same-origin iframes, so voting and browsing work in the frame -->
-  <div class="device device-iphone"><div class="device-screen"><iframe src="/app.html" title="Sparkjar feed, live" loading="lazy"></iframe></div></div>
-  <div class="device device-mac" data-title="Sparkjar"><div class="device-screen"><iframe src="/app.html" title="Sparkjar on a desktop, live" loading="lazy"></iframe></div></div>
+  <div class="device device-iphone"><div class="device-screen"><iframe src="/app.html" title="Hotaru feed, live" loading="lazy"></iframe></div></div>
+  <div class="device device-mac" data-title="Hotaru"><div class="device-screen"><iframe src="/app.html" title="Hotaru on a desktop, live" loading="lazy"></iframe></div></div>
   </div>
 </section>
 
@@ -314,7 +317,7 @@ footer .foot-rule > :last-child { order: 2; }
 <section id="install-anywhere">
   <div class="xp-wrap">
     <h2>Install it anywhere.</h2>
-    <p class="xp-lead">Sparkjar runs on every platform. On Windows, Linux and Android it installs straight from the browser &mdash; no store, no download, no runtime. It gets a real window, its own icon, and keeps working offline.</p>
+    <p class="xp-lead">Hotaru runs on every platform. On Windows, Linux and Android it installs straight from the browser &mdash; no store, no download, no runtime. It gets a real window, its own icon, and keeps working offline.</p>
     <div class="xp-grid">
     <div class="xp-card">
       <h3>iPhone &amp; iPad</h3>
@@ -328,37 +331,37 @@ footer .foot-rule > :last-child { order: 2; }
     </div>
     <div class="xp-card">
       <h3>Windows</h3>
-      <p>Open the web app in Edge or Chrome, then <strong>Install Sparkjar</strong> from the address bar. It lands in the Start Menu like any other app.</p>
-      <a href="https://sparkjar.heyitsmejosh.com">Open &amp; install &rarr;</a>
+      <p>Open the web app in Edge or Chrome, then <strong>Install Hotaru</strong> from the address bar. It lands in the Start Menu like any other app.</p>
+      <a href="https://hotaru.heyitsmejosh.com">Open &amp; install &rarr;</a>
     </div>
     <div class="xp-card">
       <h3>Android</h3>
       <p>Open the web app in Chrome, then <strong>Add to Home screen</strong>. Full screen, no browser chrome, works offline.</p>
-      <a href="https://sparkjar.heyitsmejosh.com">Open &amp; install &rarr;</a>
+      <a href="https://hotaru.heyitsmejosh.com">Open &amp; install &rarr;</a>
     </div>
     <div class="xp-card">
       <h3>Linux</h3>
       <p>Same as Windows &mdash; install the web app from Chrome or Chromium and it runs in its own window.</p>
-      <a href="https://sparkjar.heyitsmejosh.com">Open &amp; install &rarr;</a>
+      <a href="https://hotaru.heyitsmejosh.com">Open &amp; install &rarr;</a>
     </div>
     <div class="xp-card">
       <h3>Web</h3>
       <p>Nothing to install. The same app, in any modern browser.</p>
-      <a href="https://sparkjar.heyitsmejosh.com">Open the web app &rarr;</a>
+      <a href="https://hotaru.heyitsmejosh.com">Open the web app &rarr;</a>
     </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="foot-rule" aria-hidden="true"><span>Sparkjar</span><span>Ideas worth keeping</span></div>
+  <div class="foot-rule" aria-hidden="true"><span>Hotaru</span><span>Ideas worth keeping</span></div>
   <nav class="foot-dir" aria-label="Footer">
     <div class="foot-col">
-      <h3>Sparkjar</h3>
+      <h3>Hotaru</h3>
       <ul>
         <li><a href="https://apps.apple.com/app/id6785162492">Mac App Store</a></li>
         <li><a href="/app.html">Open the web app</a></li>
-        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/CHANGELOG.md">Changelog</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru/blob/main/CHANGELOG.md">Changelog</a></li>
         <li><a href="/support.html">Support</a></li>
       </ul>
     </div>
@@ -368,32 +371,32 @@ footer .foot-rule > :last-child { order: 2; }
         <li><a href="#features">Features</a></li>
         <li><a href="#how">How it works</a></li>
         <li><a href="#install-anywhere">Install anywhere</a></li>
-        <li><a href="https://heyitsmejosh.com/docs.html#sparkjar">Docs</a></li>
+        <li><a href="https://heyitsmejosh.com/docs.html#hotaru">Docs</a></li>
       </ul>
     </div>
     <div class="foot-col">
       <h3>Developers</h3>
       <ul>
-        <li><a href="https://github.com/nulljosh/sparkjar">Source</a></li>
-        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/docs/API.md">API reference</a></li>
-        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/docs/ARCHITECTURE.md">Architecture</a></li>
-        <li><a href="https://github.com/nulljosh/sparkjar/issues">Report a bug</a></li>
-        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/CONTRIBUTING.md">Contributing</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru">Source</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru/blob/main/docs/API.md">API reference</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru/blob/main/docs/ARCHITECTURE.md">Architecture</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru/issues">Report a bug</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru/blob/main/CONTRIBUTING.md">Contributing</a></li>
       </ul>
     </div>
     <div class="foot-col">
       <h3>Project</h3>
       <ul>
         <li><a href="/tos.html">Terms</a></li>
-        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/SECURITY.md">Security</a></li>
-        <li><a href="https://github.com/nulljosh/sparkjar/blob/main/LICENSE">License (MIT)</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru/blob/main/SECURITY.md">Security</a></li>
+        <li><a href="https://github.com/nulljosh/hotaru/blob/main/LICENSE">License (MIT)</a></li>
         <li><a href="https://heyitsmejosh.com">Portfolio</a></li>
         <li><a href="#top">Back to top</a></li>
       </ul>
     </div>
   </nav>
   <div class="foot-bar">
-    <p class="foot-meta">Sparkjar <span id="footver"></span> &middot; MIT License &middot; &copy; 2026 Joshua Trommel &middot; Made with <span aria-hidden="true">&hearts;</span> in Vancouver, BC</p>
+    <p class="foot-meta">Hotaru <span id="footver"></span> &middot; MIT License &middot; &copy; 2026 Joshua Trommel &middot; Made with <span aria-hidden="true">&hearts;</span> in Vancouver, BC</p>
   </div>
 </footer>
 <script>fetch("/package.json").then(function(r){return r.json()}).then(function(p){if(p.version)document.getElementById("footver").textContent="v"+p.version}).catch(function(){})</script>

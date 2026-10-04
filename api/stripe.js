@@ -15,7 +15,7 @@ function getStripe() {
   return stripe;
 }
 
-const ALLOWED_ORIGIN = 'https://sparkjar.heyitsmejosh.com';
+const ALLOWED_ORIGIN = 'https://hotaru.heyitsmejosh.com';
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);

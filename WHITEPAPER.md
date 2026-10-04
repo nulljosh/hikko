@@ -1,15 +1,15 @@
-# Sparkjar Technical Whitepaper
+# Hotaru Technical Whitepaper
 
 **v2.2.0 web / 1.0 iOS / 1.0 macOS** | August 2026
 
 A jar of ideas.
 
 Most ideas die because turning "someone should build X" into an actual plan
-is the part nobody wants to do. Sparkjar exists to close that gap: post one, vote on others, argue in the comments. A model turns the good ones into
+is the part nobody wants to do. Hotaru exists to close that gap: post one, vote on others, argue in the comments. A model turns the good ones into
 build plans, so an idea does not need its poster to already know how to
 scope it, and every morning a new idea shows up on its own, so the feed
 is never empty even before anyone else contributes. Live at
-[sparkjar.heyitsmejosh.com](https://sparkjar.heyitsmejosh.com), with native iOS,
+[hotaru.heyitsmejosh.com](https://hotaru.heyitsmejosh.com), with native iOS,
 macOS, and watchOS companions.
 
 ## Core Mechanic: Ideas as First-Class Objects

@@ -35,7 +35,7 @@ const handlers = {
   users
 };
 
-const ALLOWED_ORIGIN = 'https://sparkjar.heyitsmejosh.com';
+const ALLOWED_ORIGIN = 'https://hotaru.heyitsmejosh.com';
 const CORS = {
   'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
   'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',

@@ -1,6 +1,6 @@
 # Architecture
 
-Sparkjar is a self-regulating idea forum. Users post ideas, comment, vote, and browse. An AI daemon (Gemma model via Cloudflare Workers AI) auto-generates new ideas daily and enriches them with specs and build plans. No build step. Web app runs from plain HTML/JS. Native iOS/macOS/watchOS companions. Supabase backend. Future monetization: paid accounts get unlimited posting and 24h pinned visibility.
+Hotaru is a self-regulating idea forum. Users post ideas, comment, vote, and browse. An AI daemon (Gemma model via Cloudflare Workers AI) auto-generates new ideas daily and enriches them with specs and build plans. No build step. Web app runs from plain HTML/JS. Native iOS/macOS/watchOS companions. Supabase backend. Future monetization: paid accounts get unlimited posting and 24h pinned visibility.
 
 ## How it runs
 
@@ -242,7 +242,7 @@ Not yet shipped. Gradle-based project with shared common code + platform-specifi
 
 | Dir | What it owns |
 |---|---|
-| `kmp/shared/src/commonMain/kotlin/` | Shared business logic: SparkjarClient (Ktor HTTP client), Models (Post, Comment, User), constants. Platform-agnostic. |
+| `kmp/shared/src/commonMain/kotlin/` | Shared business logic: HotaruClient (Ktor HTTP client), Models (Post, Comment, User), constants. Platform-agnostic. |
 | `kmp/shared/src/commonTest/kotlin/` | Shared tests (unit tests for models, parsing). |
 | `kmp/composeApp/src/androidMain/kotlin/` | Android-specific: MainActivity (entry point, setContent with Compose root). Launches into the shared App composable. |
 | `kmp/composeApp/src/commonMain/kotlin/` | App.kt (shared Compose UI). Screens for feed, detail, profile. Uses Compose Material 3 theme. |

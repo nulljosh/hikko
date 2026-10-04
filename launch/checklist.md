@@ -1,4 +1,4 @@
-# Launch checklist, Sparkjar
+# Launch checklist, Hotaru
 
 - [ ] Pick a launch day (Tue–Thu)
 - [ ] Pick a hunter
@@ -8,4 +8,4 @@
 - [ ] Post `hn.md` to Hacker News as Show HN
 - [ ] Post `reddit.md` to r/SideProject and r/InternetIsBeautiful
 - [ ] Thread `x.md` on X once the PH post is live
-- [ ] Once iOS clears review, update this kit's "in review" language to "live" and re-post the App Store link
+- [x] Once iOS clears review, update this kit's "in review" language to "live" and re-post the App Store link
