@@ -35,7 +35,7 @@ struct PostDetailView: View {
                     if currentPost.enriched == true {
                         Image(systemName: "sparkles")
                             .font(.caption)
-                            .foregroundStyle(Color(hex: "c98a00"))
+                            .foregroundStyle(Color.bulbDeep)
                     } else if currentPost.enrichmentRequestedAt != nil {
                         Image(systemName: "clock")
                             .font(.caption)
@@ -104,7 +104,7 @@ struct PostDetailView: View {
             }
             .padding(16)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Color.paper)
         .navigationTitle("Post")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

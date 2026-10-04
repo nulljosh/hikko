@@ -12,6 +12,10 @@ enum DailyIdea {
         let trigger = UNCalendarNotificationTrigger(dateMatching: DateComponents(hour: 9), repeats: true)
         try? await center.add(UNNotificationRequest(identifier: "daily-idea", content: content, trigger: trigger))
     }
+
+    static func cancel() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["daily-idea"])
+    }
 }
 
 @main
@@ -42,40 +46,40 @@ struct SparkApp: App {
                 showSplash = false
             }
             .task(id: appState.isLoggedIn) {
-                if appState.isLoggedIn { await DailyIdea.schedule() }
+                if appState.isLoggedIn, UserDefaults.standard.object(forKey: "daily_idea") as? Bool ?? true { await DailyIdea.schedule() }
             }
         }
     }
 }
 
 struct SplashView: View {
-    @State private var scale: CGFloat = 0.8
-    @State private var opacity: Double = 0
+    @State private var lit = false
 
     var body: some View {
         ZStack {
-            Color(hex: "0a1a33")
-                .ignoresSafeArea()
+            Color(hex: "1c1a17").ignoresSafeArea()
 
-            VStack(spacing: 16) {
-                Circle()
-                    .fill(Color(hex: "f7c948"))
-                    .frame(width: 44, height: 44)
-                    .shadow(color: Color(hex: "f7c948").opacity(0.7), radius: 24)
-                    .padding(.bottom, 12)
+            VStack(spacing: 28) {
+                Image("Mark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 150)
+                    .shadow(color: Color.bulb.opacity(lit ? 0.55 : 0.15), radius: lit ? 40 : 12)
 
-                Text("Hotaru")
-                    .font(.system(size: 42, weight: .bold, design: .default))
-                    .foregroundStyle(Color(hex: "fdfaf3"))
+                VStack(spacing: 8) {
+                    Text("Hotaru")
+                        .font(.system(size: 34, weight: .semibold))
+                        .foregroundStyle(Color(hex: "f3ede0"))
+                    Text("Catch ideas before they fly away")
+                        .font(.subheadline)
+                        .foregroundStyle(Color(hex: "f3ede0").opacity(0.6))
+                }
+                .opacity(lit ? 1 : 0)
+                .offset(y: lit ? 0 : 8)
             }
-            .scaleEffect(scale)
-            .opacity(opacity)
         }
         .onAppear {
-            withAnimation(.spring(duration: 0.6)) {
-                scale = 1.0
-                opacity = 1.0
-            }
+            withAnimation(.easeOut(duration: 0.9)) { lit = true }
         }
     }
 }

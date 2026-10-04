@@ -88,6 +88,8 @@ struct IdeaBaseView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.paper)
             .navigationTitle("Idea Base")
             .task {
                 ideaBases = (try? await appState.api.fetchIdeaBases(offset: 0)) ?? []

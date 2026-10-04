@@ -111,7 +111,7 @@ struct CommentRow: View {
                 .foregroundStyle(.primary)
         }
         .padding(10)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
+        .background(Color.paper2, in: RoundedRectangle(cornerRadius: 10))
     }
 
     private func relativeDate(_ iso: String) -> String {

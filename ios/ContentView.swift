@@ -145,28 +145,13 @@ struct FeedView: View {
                         }
                     }
                     .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                     .refreshable { await appState.loadPosts() }
                 }
             }
-            .background(Color(.systemGroupedBackground))
+            .background(Color.paper)
             .navigationTitle("Hotaru")
             .searchable(text: $searchText, prompt: "Search posts")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    @Bindable var state = appState
-                    Picker("Sort", selection: $state.sortMode) {
-                        ForEach(AppState.SortMode.allCases, id: \.self) { mode in
-                            Label(mode.rawValue, systemImage: mode == .hot ? "flame" : "clock")
-                                .tag(mode)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                    .fixedSize()
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    AuthButton()
-                }
-            }
             .navigationDestination(for: Post.self) { post in
                 PostDetailView(post: post)
             }
@@ -176,9 +161,31 @@ struct FeedView: View {
 
     @Namespace private var chipNamespace
 
+    private var sortMenu: some View {
+        @Bindable var state = appState
+        return Menu {
+            Picker("Sort", selection: $state.sortMode) {
+                ForEach(AppState.SortMode.allCases, id: \.self) { mode in
+                    Label(mode.rawValue, systemImage: mode == .hot ? "flame" : "clock").tag(mode)
+                }
+            }
+        } label: {
+            Label(appState.sortMode.rawValue, systemImage: appState.sortMode == .hot ? "flame.fill" : "clock.fill")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Capsule().strokeBorder(Color.sparkBlue.opacity(0.5)))
+                .foregroundStyle(Color.sparkBlue)
+                .contentTransition(.symbolEffect(.replace))
+        }
+        .accessibilityLabel("Sort by \(appState.sortMode.rawValue)")
+    }
+
     private var categoryFilterBar: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
+                sortMenu
                 ForEach(categories, id: \.self) { category in
                     let selected = selectedCategory == category
                     Button {
@@ -248,7 +255,7 @@ struct PostCard: View {
                 if post.enriched == true {
                     Image(systemName: "sparkles")
                         .font(.caption2)
-                        .foregroundStyle(Color(hex: "c98a00"))
+                        .foregroundStyle(Color.bulbDeep)
                         .accessibilityLabel("AI enriched")
                 } else if post.enrichmentRequestedAt != nil {
                     Image(systemName: "clock")
@@ -273,7 +280,7 @@ struct PostCard: View {
             }
         }
         .padding(14)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.paper2, in: RoundedRectangle(cornerRadius: 16))
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(post.title) by \(post.author?.username ?? "unknown"), \(post.score) votes, \(post.category)")
     }
@@ -392,12 +399,9 @@ struct CreateView: View {
                     .disabled(!canPost)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.paper)
             .navigationTitle("Create")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    AuthButton()
-                }
-            }
             .alert("Posted!", isPresented: $showSuccess) {
                 Button("OK") { selectedTab = 0 }
             }
@@ -412,7 +416,7 @@ struct CreateView: View {
                             .buttonStyle(.borderedProminent)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.systemGroupedBackground))
+                    .background(Color.paper)
                 }
             }
         }
@@ -557,7 +561,11 @@ struct ProfileView: View {
                     }
                     .listRowBackground(Color.clear)
                 }
+
+                SettingsSection()
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.paper)
             .navigationTitle("Profile")
             .confirmationDialog(
                 "Delete your account?",
@@ -722,26 +730,6 @@ struct AuthSheet: View {
 
 // MARK: - Auth Toolbar Button
 
-struct AuthButton: View {
-    @Environment(AppState.self) private var appState
-
-    var body: some View {
-        if appState.isLoggedIn {
-            Button {
-                appState.logout()
-            } label: {
-                Image(systemName: "person.fill.checkmark")
-                    .foregroundStyle(Color.sparkBlue)
-            }
-        } else {
-            Button("Sign In") {
-                appState.showAuth = true
-            }
-            .tint(.sparkBlue)
-        }
-    }
-}
-
 // MARK: - Score Badge
 
 struct ScoreBadge: View {
@@ -799,6 +787,41 @@ enum DateFormatting {
     }
 }
 
+// MARK: - Settings
+
+struct SettingsSection: View {
+    @Environment(AppState.self) private var appState
+    @AppStorage("daily_idea") private var dailyIdea = true
+
+    private var version: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+    }
+
+    var body: some View {
+        Section {
+            Toggle(isOn: $dailyIdea) {
+                Label("Today's idea at 9", systemImage: "bell")
+            }
+            .tint(.sparkBlue)
+            .onChange(of: dailyIdea) { _, on in
+                Task { on ? await DailyIdea.schedule() : DailyIdea.cancel() }
+            }
+            Link(destination: URL(string: "https://hotaru.heyitsmejosh.com/support.html")!) {
+                Label("Support", systemImage: "questionmark.circle")
+            }
+            Link(destination: URL(string: "https://hotaru.heyitsmejosh.com/tos.html")!) {
+                Label("Terms and Privacy", systemImage: "doc.text")
+            }
+        } header: {
+            Text("Settings")
+        } footer: {
+            Text("Hotaru \(version)")
+                .frame(maxWidth: .infinity)
+                .padding(.top, 12)
+        }
+    }
+}
+
 // MARK: - Icons and motion
 
 func categoryIcon(_ category: String) -> String {
@@ -842,9 +865,9 @@ struct FireflyLoader: View {
         VStack(spacing: 18) {
             PhaseAnimator([false, true]) { lit in
                 Circle()
-                    .fill(Color(hex: "f7c948"))
+                    .fill(Color.bulb)
                     .frame(width: 22, height: 22)
-                    .shadow(color: Color(hex: "f7c948").opacity(lit ? 0.9 : 0.2), radius: lit ? 22 : 6)
+                    .shadow(color: Color.bulb.opacity(lit ? 0.9 : 0.2), radius: lit ? 22 : 6)
                     .scaleEffect(lit ? 1.15 : 0.85)
                     .offset(y: lit ? -6 : 6)
             } animation: { _ in .easeInOut(duration: 1.1) }
@@ -859,8 +882,17 @@ struct FireflyLoader: View {
 // MARK: - Color Extension
 
 extension Color {
-    // ponytail: old name kept, value is the house terracotta accent (shared with the landing)
-    static let sparkBlue = Color(hex: "b5502c")
+    // House palette, same values as heyitsmejosh.com/tokens.css (Orchard).
+    // ponytail: sparkBlue keeps its old name, it is the clay accent now.
+    static let sparkBlue = Color(light: "b3461f", dark: "e07856")
+    static let paper = Color(light: "f5f0e4", dark: "1c1a17")
+    static let paper2 = Color(light: "ebe4d3", dark: "26231f")
+    static let bulb = Color(hex: "ffca30")
+    static let bulbDeep = Color(light: "8a6412", dark: "ffca30")
+
+    init(light: String, dark: String) {
+        self.init(UIColor { $0.userInterfaceStyle == .dark ? UIColor(Color(hex: dark)) : UIColor(Color(hex: light)) })
+    }
 
     init(hex: String) {
         let scanner = Scanner(string: hex)

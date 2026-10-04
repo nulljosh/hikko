@@ -1,14 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
-  <rect width="1024" height="1024" rx="224" fill="#0a1a33"/>
-  <rect x="352" y="176" width="320" height="72" rx="20" fill="#fdfaf3"/>
-  <path d="M352 248 h320 v40 a40 40 0 0 1 -20 35 q-30 20 -30 55 v422 a80 80 0 0 1 -80 80 h-60 a80 80 0 0 1 -80 -80 v-422 q0 -35 -30 -55 a40 40 0 0 1 -20 -35 z"
-        fill="none" stroke="#fdfaf3" stroke-width="24"/>
-  <circle cx="512" cy="640" r="190" fill="#f7c948" opacity=".12"/>
-  <circle cx="512" cy="640" r="140" fill="#f7c948" opacity=".22"/>
-  <ellipse cx="452" cy="520" rx="26" ry="74" transform="rotate(-28 452 520)" fill="#fdfaf3" opacity=".6"/>
-  <ellipse cx="572" cy="520" rx="26" ry="74" transform="rotate(28 572 520)" fill="#fdfaf3" opacity=".6"/>
-  <ellipse cx="512" cy="540" rx="34" ry="62" fill="#fdfaf3"/>
-  <ellipse cx="512" cy="660" rx="64" ry="84" fill="#f7c948"/>
-  <circle cx="400" cy="430" r="14" fill="#f7c948"/>
-  <circle cx="626" cy="760" r="12" fill="#f7c948"/>
+  <rect width="1024" height="1024" rx="224" fill="#1c1a17"/>
+  <circle cx="512" cy="600" r="235" fill="#ffca30" opacity=".10"/>
+  <circle cx="512" cy="600" r="165" fill="#ffca30" opacity=".18"/>
+  <rect x="372" y="196" width="280" height="64" rx="18" fill="#f3ede0"/>
+  <rect x="396" y="262" width="232" height="34" rx="8" fill="#f3ede0" opacity=".55"/>
+  <rect x="292" y="300" width="440" height="544" rx="124" fill="none" stroke="#f3ede0" stroke-width="28"/>
+  <ellipse cx="458" cy="520" rx="30" ry="82" transform="rotate(-32 458 520)" fill="#f3ede0" opacity=".6"/>
+  <ellipse cx="566" cy="520" rx="30" ry="82" transform="rotate(32 566 520)" fill="#f3ede0" opacity=".6"/>
+  <circle cx="512" cy="468" r="26" fill="#e07856"/>
+  <ellipse cx="512" cy="522" rx="36" ry="40" fill="#e07856"/>
+  <ellipse cx="512" cy="626" rx="62" ry="82" fill="#ffca30"/>
+  <circle cx="392" cy="726" r="14" fill="#ffca30"/>
+  <circle cx="636" cy="398" r="11" fill="#ffca30"/>
+  <circle cx="626" cy="770" r="9" fill="#ffca30" opacity=".7"/>
 </svg>

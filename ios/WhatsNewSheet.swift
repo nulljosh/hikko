@@ -1,37 +1,44 @@
 import SwiftUI
 
-private let whatsNewVersion = "2.1.1"
-private let whatsNewBullets = [
-    "Native iPhone, Mac, and Apple Watch companion apps",
-    "AI Idea Bases — generate idea clusters on any topic",
-    "Improved feed sorting and category filters",
-    "Face ID and Touch ID sign-in",
+private let whatsNewVersion = "3.0"
+private let whatsNewRows: [(icon: String, text: String)] = [
+    ("sparkles", "Sparkjar is now Hotaru. Same jar, new light."),
+    ("bell", "Today's idea, every morning at nine."),
+    ("square.grid.2x2", "Categories with icons, and a calmer feed."),
+    ("paintpalette", "One palette across iPhone, Mac and the web."),
 ]
 
 struct WhatsNewSheet: View {
     @AppStorage("whats_new_seen_version") private var seenVersion = ""
     @State private var isPresented = false
-    @State private var contentHeight: CGFloat = 220
 
     var body: some View {
         Color.clear
-            .onAppear { isPresented = seenVersion != whatsNewVersion }
+            .task {
+                // Wait for the splash to fade before showing anything.
+                try? await Task.sleep(for: .seconds(1.6))
+                isPresented = seenVersion != whatsNewVersion
+            }
             .sheet(isPresented: $isPresented) {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("What's New in v\(whatsNewVersion)")
+                    Text("New in Hotaru \(whatsNewVersion)")
                         .font(.title2.bold())
 
-                    VStack(alignment: .leading, spacing: 12) {
-                        ForEach(whatsNewBullets, id: \.self) { bullet in
-                            HStack(alignment: .top, spacing: 8) {
-                                Text("•")
-                                Text(bullet)
+                    VStack(alignment: .leading, spacing: 16) {
+                        ForEach(whatsNewRows, id: \.text) { row in
+                            HStack(alignment: .firstTextBaseline, spacing: 14) {
+                                Image(systemName: row.icon)
+                                    .foregroundStyle(Color.sparkBlue)
+                                    .frame(width: 22)
+                                Text(row.text)
+                                    .foregroundStyle(.secondary)
                             }
                         }
                     }
                     .font(.body)
-                    .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
+
+                    Spacer(minLength: 0)
 
                     Button {
                         seenVersion = whatsNewVersion
@@ -41,19 +48,15 @@ struct WhatsNewSheet: View {
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
                     .tint(.sparkBlue)
                 }
-                .padding(24)
-                .background(GeometryReader { geo in
-                    Color.clear.preference(key: SheetHeightKey.self, value: geo.size.height)
-                })
-                .onPreferenceChange(SheetHeightKey.self) { contentHeight = $0 }
-                .presentationDetents([.height(contentHeight + 34)]) // ponytail: +34 covers home-indicator safe area GeometryReader doesn't include
+                .padding(.horizontal, 28)
+                .padding(.top, 36)
+                .padding(.bottom, 24)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
             }
     }
-}
-
-private struct SheetHeightKey: PreferenceKey {
-    nonisolated(unsafe) static var defaultValue: CGFloat = 220
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
 }
