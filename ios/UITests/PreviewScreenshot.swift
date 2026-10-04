@@ -14,10 +14,8 @@ final class PreviewScreenshot: XCTestCase {
     }
 
     func testCaptureScreenshots() {
-        // Tab bar is a custom floating overlay, not the system tab bar —
-        // tapping it mid-test has mistapped underlying list content (a post
-        // row, an RFS link) and captured the wrong screen entirely. Launching
-        // fresh per tab via UITEST_TAB sidesteps tapping it altogether.
+        // Launching fresh per tab via UITEST_TAB keeps each shot independent
+        // of tab bar layout (it differs between iPhone and iPad).
         let feed = launchApp()
         sleep(3)
         if feed.buttons["Got it"].waitForExistence(timeout: 2) {
