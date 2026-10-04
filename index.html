@@ -18,7 +18,6 @@
 <link rel="apple-touch-icon" href="/icon-192.svg">
 <link rel="icon" href="/icon.svg">
 <link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="devices.css">
 <style>
   :root {
     --font: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif);
@@ -46,7 +45,8 @@
   .eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 0.75rem; }
   h1, h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; margin: 0; }
   .btn { text-decoration: none; font-size: 0.9375rem; font-weight: 500; padding: 0.875rem 1.75rem; border-radius: var(--radius-pill); display: inline-block; transition: transform 0.2s var(--spring), opacity 0.2s var(--ease); border: none; cursor: pointer; }
-  .btn-primary { background: var(--text); color: var(--bg); }
+  /* Primary actions glow like the firefly in the logo: bulb yellow on warm ink. */
+  .btn-primary { background: var(--bulb, #ffca30); color: #1c1a17; box-shadow: 0 0 24px rgba(255,202,48,.35); }
   .btn-primary:hover { transform: translateY(-2px); }
   .btn-secondary { color: var(--text); border: 1px solid var(--border); background: transparent; }
   .btn-secondary:hover { opacity: 0.7; }
@@ -58,8 +58,10 @@
   nav.main-nav { display: flex; align-items: center; gap: 2rem; }
   nav.main-nav a { text-decoration: none; color: var(--text2); font-size: 0.875rem; font-weight: 500; }
   nav.main-nav a:hover { color: var(--text); }
-  .header-cta { background: var(--text); color: var(--bg); font-size: 0.875rem; font-weight: 500; padding: 0.55rem 1.25rem; border-radius: var(--radius-pill); text-decoration: none; transition: opacity 0.2s var(--ease); }
+  .header-cta { background: #1c1a17; color: var(--bulb, #ffca30); font-size: 0.875rem; font-weight: 500; padding: 0.55rem 1.25rem; border-radius: var(--radius-pill); text-decoration: none; transition: opacity 0.2s var(--ease); }
   .header-cta:hover { opacity: 0.85; }
+  .header-link { color: var(--text); font-size: 0.875rem; font-weight: 500; text-decoration: none; padding: 0.55rem 0.5rem; }
+  .header-link:hover { opacity: 0.7; }
   .header-right { display: flex; align-items: center; gap: 0.75rem; }
   .theme-btn { background: var(--subtle); color: var(--text); border: 1px solid var(--border); width: 34px; height: 34px; border-radius: var(--radius-pill); cursor: pointer; font-size: 0.9375rem; line-height: 1; display: flex; align-items: center; justify-content: center; font-family: var(--font); transition: opacity 0.2s var(--ease); }
   .theme-btn:hover { opacity: 0.7; }
@@ -67,26 +69,6 @@
   .hero { max-width: 1080px; margin: 0 auto; padding: 6rem 1.5rem 5rem; text-align: center; }
   .hero-copy { animation: fadeUp 0.8s var(--ease) both; max-width: 640px; margin: 0 auto; }
   .hero-actions { justify-content: center; }
-  /* the shot now sits in its own section further down, at its natural size */
-  .shot-section { text-align: center; }
-  .shot-section img { height: auto; border-radius: 16px; border: 1px solid var(--border); }
-  .shot-grid { display: flex; gap: 2rem; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
-  .shot-grid .device-iphone { --device-w: 260px; }
-  /* web capture has no status bar, so give the island a strip to sit on */
-  .shot-grid .device-iphone .device-screen { padding-top: calc(var(--device-w) * 0.14); background: var(--bg); }
-  .shot-grid .device-mac { --device-w: 620px; margin: 0; }
-  /* one frame per device: the phone on phones, the Mac window on desktops */
-  .shot-grid .device-iphone { display: none; }
-  @media (max-width: 800px) { .shot-grid .device-iphone { display: block; } .shot-grid .device-mac { display: none; } }
-  /* live app in the frames: render at native width, scale down to the device */
-  .shot-grid .device-screen { aspect-ratio: 9 / 19.5; }
-  .shot-grid .device-mac .device-screen { aspect-ratio: 1024 / 700; }
-  .shot-grid .device-screen iframe {
-    position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; display: block;
-    width: 390px; height: 845px;
-  }
-  .shot-grid .device-iphone .device-screen iframe { top: calc(var(--device-w) * 0.14); }
-  .shot-grid .device-mac .device-screen iframe { width: 1024px; height: 700px; }
   .hero h1 { font-size: clamp(2.75rem, 5.5vw, 4.25rem); line-height: 1.05; margin-bottom: 1.25rem; }
   .hero p { font-size: 1.125rem; line-height: 1.6; color: var(--text2); margin: 0 0 2rem; }
   .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
@@ -192,7 +174,8 @@ footer .foot-rule > :last-child { order: 2; }
     </nav>
     <div class="header-right">
       <button class="theme-btn" data-theme-toggle type="button" title="Switch to light mode" aria-label="Switch to light mode">&#9790;</button>
-      <a href="/app.html" class="header-cta">Open Hotaru</a>
+      <a href="/app.html?auth=login" class="header-link">Log in</a>
+      <a href="/app.html?auth=register" class="header-cta">Sign up</a>
     </div>
   </div>
 </header>
@@ -212,8 +195,8 @@ footer .foot-rule > :last-child { order: 2; }
     <h1>Catch ideas before they fly away</h1>
     <p>A jar of ideas that glows. A new one flies in every morning, grows a build spec and a plan, and the best ones rise when you vote.</p>
     <div class="hero-actions">
-      <a href="/app.html" class="btn btn-primary">Browse the feed</a>
-      <a href="/app.html" class="btn btn-secondary">Sign up free</a>
+      <a href="/app.html?auth=register" class="btn btn-primary">Sign up free</a>
+      <a href="/app.html" class="btn btn-secondary">Browse the feed</a>
       <a href="https://apps.apple.com/app/id6785162492" class="btn btn-secondary" target="_blank" rel="noopener">Mac App Store</a>
     </div>
   </div>
@@ -247,34 +230,6 @@ footer .foot-rule > :last-child { order: 2; }
     </div>
   </div>
 </section>
-
-<section class="shot-section">
-  <div class="section-head">
-    <div class="eyebrow">Native apps</div>
-    <h2>On your Mac and in your pocket</h2>
-  </div>
-  <div class="shot-grid">
-  <!-- src is the dark shot because dark is the default theme; theme.js swaps
-       it to the light capture the moment the toggle flips, so the phone is
-       never showing the theme the page isn't in. -->
-  <!-- the real app, not a screenshot: same-origin iframes, so voting and browsing work in the frame -->
-  <div class="device device-iphone"><div class="device-screen"><iframe src="/app.html" title="Hotaru feed, live" loading="lazy"></iframe></div></div>
-  <div class="device device-mac" data-title="Hotaru"><div class="device-screen"><iframe src="/app.html" title="Hotaru on a desktop, live" loading="lazy"></iframe></div></div>
-  </div>
-</section>
-
-<script>
-// Scale each live iframe to its device screen. CSS can't divide a length by a number
-// into a unitless scale, so this is the one place it has to be JS.
-(function () {
-  function fit() {
-    document.querySelectorAll('.shot-grid .device-screen iframe').forEach(function (f) {
-      f.style.transform = 'scale(' + (f.parentNode.clientWidth / f.offsetWidth) + ')';
-    });
-  }
-  fit(); addEventListener('resize', fit);
-})();
-</script>
 
 <section id="how">
   <div class="how-inner">
@@ -319,7 +274,7 @@ footer .foot-rule > :last-child { order: 2; }
 <section id="install-anywhere">
   <div class="xp-wrap">
     <h2>Install it anywhere.</h2>
-    <p class="xp-lead">Hotaru runs on every platform. On Windows, Linux and Android it installs straight from the browser &mdash; no store, no download, no runtime. It gets a real window, its own icon, and keeps working offline.</p>
+    <p class="xp-lead">Hotaru runs on every platform. On Windows, Linux and Android it installs straight from the browser. No store, no download, no runtime. It gets a real window, its own icon, and keeps working offline.</p>
     <div class="xp-grid">
     <div class="xp-card">
       <h3>iPhone &amp; iPad</h3>
@@ -343,7 +298,7 @@ footer .foot-rule > :last-child { order: 2; }
     </div>
     <div class="xp-card">
       <h3>Linux</h3>
-      <p>Same as Windows &mdash; install the web app from Chrome or Chromium and it runs in its own window.</p>
+      <p>Same as Windows: install the web app from Chrome or Chromium and it runs in its own window.</p>
       <a href="https://hotaru.heyitsmejosh.com">Open &amp; install &rarr;</a>
     </div>
     <div class="xp-card">

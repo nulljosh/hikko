@@ -1,1 +1,117 @@
-@import url('https://heyitsmejosh.com/tokens.css');
+/* Vendored copy of https://heyitsmejosh.com/tokens.css (Orchard, 2026-09-25).
+   ponytail: copied, not @imported. The cross-origin import left the page unstyled
+   in some browsers. Re-copy from nulljosh.github.io/tokens.css when the system changes. */
+/* Jaybulb design system, canonical tokens. Orchard edition (2026-09-25): */
+/* cream paper, warm ink, apple clay accent, leaf green, after the Kohler Malus domestica plate. */
+/* Consumed by heyitsmejosh.com and every app site: <link href="https://heyitsmejosh.com/tokens.css"> */
+/* Past themes live in themes/. Don't add a new one, edit this. */
+
+:root{
+  /* accent */
+  --bulb:#ffca30;          /* brand yellow, kept: app icons and full-bleed blocks use it */
+  --bulb-deep:#8a6412;     /* accessible gold for text on paper */
+  --clay:#b3461f;          /* apple blush (plate 1), the accent */
+  --clay-deep:#9e3b1f;
+  --leaf:#4f6b34;          /* leaf green, secondary */
+  --accent:var(--clay);
+  --accent-dot:var(--clay);
+
+  /* surface + ink */
+  --color-bg:#f5f0e4;       /* plate paper */
+  --color-bg2:#ebe4d3;
+  --color-text:#1f1b16;     /* warm ink */
+  --color-secondary:rgba(31,27,22,0.60);
+  --color-soft:rgba(31,27,22,0.72);
+  --color-hairline:#dcd2bd;
+  --color-hairline-strong:var(--clay);
+  --color-underline:rgba(179,70,31,0.45);
+  --color-underline-hover:var(--clay);
+  --color-code-bg:#ebe4d3;
+
+  /* aliases for older consumers */
+  --bg:var(--color-bg);
+  --bg2:var(--color-bg2);
+  --text:var(--color-text);
+  --text2:var(--color-secondary);
+  --text3:rgba(31,27,22,0.34);
+  --border:var(--color-hairline);
+  --border2:var(--color-bg2);
+
+  /* type San Francisco on Apple, Helvetica off it. No webfonts. */
+  --font-body:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-serif:var(--font-body);
+  --font-code:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
+  --tracking:-0.2px;
+  --caption:small-caps;     /* plate labels: font-variant:var(--caption); letter-spacing:.06em */
+
+  /* geometry: soft paper, not glass */
+  --radius:12px;
+  --radius-sm:6px;
+  --radius-md:9px;
+  --radius-lg:18px;
+  --radius-pill:999px;
+  --rule:1px solid var(--color-hairline);
+  --column-width:38rem;
+
+  /* .glass is now a paper card: near-opaque, barely blurred, warm shadow */
+  --glass-bg:rgba(250,246,237,0.92);
+  --glass-blur:blur(8px);
+  --glass-border:var(--color-hairline);
+  --shadow-sm:0 1px 2px rgba(60,40,20,0.06);
+  --shadow-md:0 4px 16px rgba(60,40,20,0.08);
+  --shadow-lg:0 12px 36px rgba(60,40,20,0.12);
+
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.glass{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-md);
+}
+
+/* Dark: the plate at night. Paper goes warm charcoal, clay and gold stay. */
+[data-theme="dark"]{
+  --color-bg:#1c1a17;
+  --color-bg2:#26231f;
+  --color-text:#f3ede0;
+  --color-secondary:rgba(243,237,224,0.60);
+  --color-soft:rgba(243,237,224,0.72);
+  --color-hairline:#3a352e;
+  --color-underline:rgba(224,120,86,0.55);
+  --color-underline-hover:var(--clay);
+  --color-code-bg:#26231f;
+  --clay:#e07856;
+  --bulb-deep:var(--bulb);
+  --text3:rgba(243,237,224,0.34);
+  --glass-bg:rgba(38,35,31,0.92);
+  --glass-border:var(--color-hairline);
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.35);
+  --shadow-lg:0 12px 36px rgba(0,0,0,0.45);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --color-bg:#1c1a17;
+    --color-bg2:#26231f;
+    --color-text:#f3ede0;
+    --color-secondary:rgba(243,237,224,0.60);
+    --color-soft:rgba(243,237,224,0.72);
+    --color-hairline:#3a352e;
+    --color-underline:rgba(224,120,86,0.55);
+    --color-underline-hover:var(--clay);
+    --color-code-bg:#26231f;
+    --clay:#e07856;
+    --bulb-deep:var(--bulb);
+    --text3:rgba(243,237,224,0.34);
+    --glass-bg:rgba(38,35,31,0.92);
+    --glass-border:var(--color-hairline);
+    --shadow-sm:0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md:0 4px 16px rgba(0,0,0,0.35);
+    --shadow-lg:0 12px 36px rgba(0,0,0,0.45);
+  }
+}

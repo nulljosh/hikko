@@ -22,33 +22,34 @@
         /* Every token below must exist in BOTH blocks: an undefined var() is
            not inherited, it drops the declaration, which is how the light
            theme used to lose the fill on .btn and the avatar circle. */
+        /* Hotaru palette: the logo and heyitsmejosh.com/tokens.css. */
         :root[data-theme="dark"] {
-            --bg: #111111;
-    --link: #3B82F6;
-            --text: #e8e8f0;
-            --surface: #1a1a1a;
-            --surface2: #242424;
-            --surface3: #2e2e2e;
-            --text2: rgba(232,232,240,0.5);
-            --text3: rgba(232,232,240,0.30);
-            --text-secondary: rgba(232,232,240,0.5);
-            --border: rgba(232,232,240,0.09);
-            --accent: #3B82F6;
-            --modal-bg: rgba(0,0,0,0.85);
+            --bg: #1c1a17;
+    --link: #e07856;
+            --text: #f3ede0;
+            --surface: #26231f;
+            --surface2: #2f2b26;
+            --surface3: #3a352e;
+            --text2: rgba(243,237,224,0.6);
+            --text3: rgba(243,237,224,0.34);
+            --text-secondary: rgba(243,237,224,0.6);
+            --border: #3a352e;
+            --accent: #e07856;
+            --modal-bg: rgba(0,0,0,0.75);
         }
         :root[data-theme="light"] {
-            --bg: #ffffff;
-    --link: #2563EB;
-            --text: #1a1a1a;
-            --surface: #f5f5f5;
-            --surface2: #ececec;
-            --surface3: #e2e2e2;
-            --text2: rgba(26,26,26,0.61);
-            --text3: rgba(26,26,26,0.3);
-            --text-secondary: rgba(26,26,26,0.5);
-            --border: rgba(26,26,26,0.09);
-            --accent: #2563EB;
-            --modal-bg: rgba(0,0,0,0.5);
+            --bg: #f5f0e4;
+    --link: #9e3b1f;
+            --text: #1f1b16;
+            --surface: #ebe4d3;
+            --surface2: #e3dac6;
+            --surface3: #d9cfb8;
+            --text2: rgba(31,27,22,0.6);
+            --text3: rgba(31,27,22,0.34);
+            --text-secondary: rgba(31,27,22,0.6);
+            --border: #dcd2bd;
+            --accent: #b3461f;
+            --modal-bg: rgba(31,27,22,0.45);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { overflow-x: hidden; }
@@ -123,7 +124,7 @@
         .success { color: #30d158; font-size: 14px; margin-bottom: 10px; }
         footer { margin-top: 60px; padding: 30px 0 20px; border-top: 1px solid var(--border); color: var(--text3); font-size: 13px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         footer a { color: var(--text3); text-decoration: none; }
-        footer a:hover { color: #3B82F6; }
+        footer a:hover { color: var(--accent); }
         .tier-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
         .tier-1 { background: #2a2a2a; color: #8e8e93; border: 1px solid #3a3a3a; }
         .tier-2 { background: #1a2a1a; color: #30d158; border: 1px solid #2a3a2a; }
@@ -143,7 +144,7 @@
         .notif-dropdown { display: none; position: absolute; top: 44px; right: 0; width: 320px; max-height: 400px; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; z-index: 999; }
         .notif-dropdown.open { display: block; }
         .notif-dropdown-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; }
-        .notif-dropdown-header button { background: none; border: none; color: #3B82F6; cursor: pointer; font-size: 12px; }
+        .notif-dropdown-header button { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 12px; }
         .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text2); cursor: pointer; transition: background 0.15s; }
         .notif-item:hover { background: var(--surface2); }
         .notif-item.unread { color: var(--text); font-weight: 500; }
@@ -168,22 +169,22 @@
         .tag-pill { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); transition: all 0.15s; }
         .tag-pill:hover { border-color: var(--text3); }
         .tag-pill.selected { color: #fff; border-color: transparent; }
-        .tag-pill[data-tag="tech"].selected { background: #3B82F6; }
-        .tag-pill[data-tag="design"].selected { background: #8B5CF6; }
-        .tag-pill[data-tag="business"].selected { background: #10B981; }
-        .tag-pill[data-tag="random"].selected { background: #F59E0B; }
+        .tag-pill[data-tag="tech"].selected { background: var(--accent); }
+        .tag-pill[data-tag="design"].selected { background: #4f6b34; }
+        .tag-pill[data-tag="business"].selected { background: #8a6412; }
+        .tag-pill[data-tag="random"].selected { background: #9e3b1f; }
         .post-tags { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
         .post-tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; color: #fff; }
-        .post-tag.tag-tech { background: #3B82F6; }
-        .post-tag.tag-design { background: #8B5CF6; }
-        .post-tag.tag-business { background: #10B981; }
-        .post-tag.tag-random { background: #F59E0B; }
+        .post-tag.tag-tech { background: var(--accent); }
+        .post-tag.tag-design { background: #4f6b34; }
+        .post-tag.tag-business { background: #8a6412; }
+        .post-tag.tag-random { background: #9e3b1f; }
 
         /* Tag filter bar */
         .tag-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
         .tag-filter-btn { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); transition: all 0.15s; }
         .tag-filter-btn:hover { border-color: var(--text3); }
-        .tag-filter-btn.active { background: rgba(59, 130, 246, 0.8); color: #fff; border-color: transparent; }
+        .tag-filter-btn.active { background: var(--accent); color: #fff; border-color: transparent; }
 
         .idea { cursor: pointer; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .idea:hover { transform: translateY(-2px); }
@@ -256,9 +257,9 @@
             border-color: var(--link, var(--accent));
         }
         .filter-btn.active, .sort-btn.active {
-            background: rgba(59, 130, 246, 0.8);
+            background: var(--accent);
             backdrop-filter: blur(10px);
-            border-color: rgba(59, 130, 246, 0.6);
+            border-color: var(--accent);
             color: white;
         }
         /* Apple Liquid Glass -- post cards */
@@ -296,7 +297,7 @@
                 <div id="authUI"></div>
             </div>
         </div>
-        <p class="subtitle">Where ideas become reality</p>
+        <p class="subtitle">Catch ideas before they fly away</p>
         <div class="nav-pills">
             <div class="filters">
                 <div class="filter-group">
@@ -370,7 +371,7 @@
                 <input type="password" id="registerPassword" placeholder="Password">
                 <input type="password" id="registerConfirm" placeholder="Confirm Password">
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text3);margin:4px 0 12px">
-                    <input type="checkbox" id="registerTos"> I agree to the <a href="/tos.html" target="_blank" style="color:var(--text2)">Terms of Service</a>
+                    <input type="checkbox" id="registerTos" style="width:auto;margin:0;flex:none"> <span>I agree to the <a href="/tos.html" target="_blank" style="color:var(--text2)">Terms of Service</a></span>
                 </label>
                 <button class="btn" onclick="register()">Register</button>
             </div>
@@ -384,7 +385,7 @@
             <h2 style="margin-bottom:20px">New Idea</h2>
             <div id="proBanner" style="display:none;font-size:13px;color:var(--text-secondary);margin-bottom:14px;padding:10px 12px;border:1px solid var(--border);border-radius:8px">
                 Free posts are rate-limited and don't get priority visibility.
-                <a href="#" onclick="unlockPro();return false" style="color: var(--link, var(--accent))">Unlock Pro &mdash; $1</a> for unlimited posts + 24h pinned visibility.
+                <a href="#" onclick="unlockPro();return false" style="color: var(--link, var(--accent))">Unlock Pro for $1</a> for unlimited posts + 24h pinned visibility.
             </div>
             <div id="ideaError" class="error"></div>
             <input type="text" id="title" placeholder="Title">
@@ -1197,6 +1198,12 @@
             const params = new URLSearchParams(location.search);
             const ghToken = params.get('github_token');
             const authErr = params.get('auth_error');
+            // Landing links land here with ?auth=login or ?auth=register.
+            const authTab = params.get('auth');
+            if ((authTab === 'login' || authTab === 'register') && !isLoggedIn()) {
+                history.replaceState({}, '', '/app.html');
+                setTimeout(() => showAuthModal(authTab), 0);
+            }
             if (ghToken) {
                 setToken(ghToken);
                 // Fetch user info from token
