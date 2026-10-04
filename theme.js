@@ -1,4 +1,4 @@
-// Shared theme control for every Hotaru page.
+// Shared theme control for every Hikko page.
 //
 // Before this existed each page carried its own copy: app.html and reset.html
 // read `spark_theme` and set `data-theme` on <html>, user.html read a separate

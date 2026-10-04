@@ -1,9 +1,9 @@
-# Contributing to hotaru
+# Contributing to hikko
 
 ## Setup
 
 ```
-git clone https://github.com/nulljosh/hotaru.git
+git clone https://github.com/nulljosh/hikko.git
 cd sparkjar
 npm install
 ```

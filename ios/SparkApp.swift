@@ -67,7 +67,7 @@ struct SplashView: View {
                     .shadow(color: Color.bulb.opacity(lit ? 0.55 : 0.15), radius: lit ? 40 : 12)
 
                 VStack(spacing: 8) {
-                    Text("Hotaru")
+                    Text("Hikko")
                         .font(.system(size: 34, weight: .semibold))
                         .foregroundStyle(Color(hex: "f3ede0"))
                     Text("Catch ideas before they fly away")

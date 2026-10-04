@@ -1,4 +1,4 @@
-# Hotaru
+# Hikko
 
 Version: v2.2.0
 
@@ -25,7 +25,7 @@ own, don't attempt it as a quick follow-on to a docs pass.
 - [ ] Idea: self-regulating idea forum, infinite AI-generated ideas via a free model (Gemma/Qwen), with a second model (Owen?) filtering its own output; eventually add law/trademark search + monetization/commercialization hooks. Exploratory, no deadline.
 
 ## Recovery note (2026-06-21)
-Local checkout and GitHub repo both went missing before this date (cause unconfirmed, no Time Machine/APFS snapshot/trash copy existed to check). Source was recovered from Vercel's deployment-files API (`GET /v8/deployments/{id}/files/{fileId}`, v6 of the same endpoint is disabled) against the latest deployment, plus the live-served frontend at hotaru.heyitsmejosh.com as a cross-check (the frontend is unbundled, so the served files are the actual source). Risk: any local edits made between the last deploy and the original deletion are not captured, this is the latest deployed snapshot, not necessarily the latest *written* code.
+Local checkout and GitHub repo both went missing before this date (cause unconfirmed, no Time Machine/APFS snapshot/trash copy existed to check). Source was recovered from Vercel's deployment-files API (`GET /v8/deployments/{id}/files/{fileId}`, v6 of the same endpoint is disabled) against the latest deployment, plus the live-served frontend at hikko.heyitsmejosh.com as a cross-check (the frontend is unbundled, so the served files are the actual source). Risk: any local edits made between the last deploy and the original deletion are not captured, this is the latest deployed snapshot, not necessarily the latest *written* code.
 
 ## Shipped (2026-06-28)
 - [x] ToS checkbox required on register (blocks submit if unchecked), `index.html`, `/tos.html`
@@ -116,5 +116,5 @@ Build with `xcodegen generate` in each platform dir. Screenshots in `screenshots
 Run `supabase/migrations/20260410000006_llm_enrichment.sql` via Supabase SQL editor.
 
 ## Roadmap (2026-07-18 nightly wrap)
-- **Hotaru iOS purple icon, root cause FIXED 2026-07-18**: Both iOS provisioning profiles ("Spark iOS App Store", "Spark Widgets App Store") were `INVALID`, zero certificates attached, and the App Group entitlement baked into them was an empty array despite APP_GROUPS capability being enabled on the bundle ID. Deleted + recreated both profiles via `asc profiles create` with a valid IOS_DISTRIBUTION cert; new profiles correctly embed `group.com.jt.spark`. Installed locally, removed stale same-named cached profiles. Archive now succeeds. Along the way also fixed: widgets extension Info.plist was missing `NSExtensionPointIdentifier` (App Store upload rejects this, code 90348) and had a mismatched `CFBundleVersion` vs the parent app; both fixed in `ios/project.yml`'s `SparkWidgetsExtension` target.
+- **Hikko iOS purple icon, root cause FIXED 2026-07-18**: Both iOS provisioning profiles ("Spark iOS App Store", "Spark Widgets App Store") were `INVALID`, zero certificates attached, and the App Group entitlement baked into them was an empty array despite APP_GROUPS capability being enabled on the bundle ID. Deleted + recreated both profiles via `asc profiles create` with a valid IOS_DISTRIBUTION cert; new profiles correctly embed `group.com.jt.spark`. Installed locally, removed stale same-named cached profiles. Archive now succeeds. Along the way also fixed: widgets extension Info.plist was missing `NSExtensionPointIdentifier` (App Store upload rejects this, code 90348) and had a mismatched `CFBundleVersion` vs the parent app; both fixed in `ios/project.yml`'s `SparkWidgetsExtension` target.
 - **NEXT SESSION, finish the ship**: archive is verified working (`.asc/artifacts/Spark-iOS.xcarchive`, v2.2.0 build 3). Still need: `asc xcode export` (ExportOptions.plist, `-allowProvisioningUpdates`) then `asc builds upload`/`asc publish testflight` to actually get the new icon onto ASC/TestFlight. Export was interrupted mid-run tonight, not failed, just re-run it.

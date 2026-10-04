@@ -2,7 +2,7 @@ import SwiftUI
 
 private let whatsNewVersion = "3.0"
 private let whatsNewRows: [(icon: String, text: String)] = [
-    ("sparkles", "Sparkjar is now Hotaru. Same jar, new light."),
+    ("sparkles", "Sparkjar is now Hikko. Same jar, new light."),
     ("bell", "Today's idea, every morning at nine."),
     ("square.grid.2x2", "Categories with icons, and a calmer feed."),
     ("paintpalette", "One palette across iPhone, Mac and the web."),
@@ -21,7 +21,7 @@ struct WhatsNewSheet: View {
             }
             .sheet(isPresented: $isPresented) {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("New in Hotaru \(whatsNewVersion)")
+                    Text("New in Hikko \(whatsNewVersion)")
                         .font(.title2.bold())
 
                     VStack(alignment: .leading, spacing: 16) {

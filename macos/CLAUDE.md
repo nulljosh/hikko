@@ -1,4 +1,4 @@
-# Hotaru macOS
+# Hikko macOS
 v1.0.0
 ## Rules
 - macOS 14+, SwiftUI, @Observable
@@ -8,7 +8,7 @@ v1.0.0
 - Keyboard shortcuts: Cmd-N (new post), Cmd-R (refresh), Cmd-Return (submit post)
 - Error banner system for auth and API failures
 - Optimistic voting with debounce and error revert
-- Same API as iOS: https://hotaru.heyitsmejosh.com
+- Same API as iOS: https://hikko.heyitsmejosh.com
 ## Run
 ```bash
 cd macos && xcodegen generate && open SparkMac.xcodeproj

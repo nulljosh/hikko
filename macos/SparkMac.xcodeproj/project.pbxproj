@@ -521,7 +521,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.heyitsmejosh.spark;
-				PRODUCT_NAME = Hotaru;
+				PRODUCT_NAME = Hikko;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -544,7 +544,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.heyitsmejosh.spark;
-				PRODUCT_NAME = Hotaru;
+				PRODUCT_NAME = Hikko;
 				SDKROOT = macosx;
 			};
 			name = Debug;

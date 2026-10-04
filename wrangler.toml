@@ -9,8 +9,8 @@ pages_build_output_dir = "dist"
 # be rewritten for this migration.
 
 [vars]
-ALLOWED_ORIGIN = "https://hotaru.heyitsmejosh.com"
-APP_URL = "https://hotaru.heyitsmejosh.com"
+ALLOWED_ORIGIN = "https://hikko.heyitsmejosh.com"
+APP_URL = "https://hikko.heyitsmejosh.com"
 # Not a secret: native Sign in with Apple sets the token `aud` to the BUNDLE ID,
 # and iOS + macOS both ship com.heyitsmejosh.spark. Without it api/_lib/auth/apple.js
 # 500s with "Apple Sign In is misconfigured" — which is exactly the error App Review

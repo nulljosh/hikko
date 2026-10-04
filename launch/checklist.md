@@ -1,4 +1,4 @@
-# Launch checklist, Hotaru
+# Launch checklist, Hikko
 
 - [ ] Pick a launch day (Tue–Thu)
 - [ ] Pick a hunter

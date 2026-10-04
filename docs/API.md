@@ -1,6 +1,6 @@
-# Hotaru API
+# Hikko API
 
-Base URL: `https://hotaru.heyitsmejosh.com`
+Base URL: `https://hikko.heyitsmejosh.com`
 
 One Cloudflare Pages Function (`functions/api/[[route]].js`) fronts every
 handler in `api/`. Responses are JSON; errors are `{ "error": "message" }` with
@@ -11,11 +11,11 @@ the matching status.
 Bearer JWT. Register or log in, then send the token:
 
 ```bash
-TOKEN=$(curl -s -X POST https://hotaru.heyitsmejosh.com/api/auth/login \
+TOKEN=$(curl -s -X POST https://hikko.heyitsmejosh.com/api/auth/login \
   -H 'Content-Type: application/json' \
   -d '{"username":"you","password":"..."}' | jq -r .token)
 
-curl -H "Authorization: Bearer $TOKEN" https://hotaru.heyitsmejosh.com/api/notifications
+curl -H "Authorization: Bearer $TOKEN" https://hikko.heyitsmejosh.com/api/notifications
 ```
 
 Routes marked **auth** return `401` without a token. Posting is rate limited to
@@ -62,7 +62,7 @@ Body `{ "voteType": "up" | "down" }`. Returns the post's new score.
 - `POST /api/ai` — auth. Idea enrichment
 - `POST /api/stripe-webhook` — signature-verified, not for client use
 
-CORS allows only `https://hotaru.heyitsmejosh.com`. Server-to-server callers
+CORS allows only `https://hikko.heyitsmejosh.com`. Server-to-server callers
 are unaffected; browser callers on other origins are not supported.
 
 ## WebMCP

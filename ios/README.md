@@ -1,7 +1,7 @@
 ![Spark iOS](icon.svg)
 # Spark iOS
 ![version](https://img.shields.io/badge/version-v2.1.1-blue)
-Native iOS companion for [Spark](https://hotaru.heyitsmejosh.com) -- idea sharing with voting.
+Native iOS companion for [Spark](https://hikko.heyitsmejosh.com) -- idea sharing with voting.
 ## Features
 - Browse posts with pull-to-refresh, search, and category filter
 - Upvote / downvote with optimistic UI

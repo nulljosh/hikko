@@ -1,14 +1,14 @@
 <img src="icon.svg" width="80" style="border-radius:18px">
 
-# Hotaru
+# Hikko
 
-![version](https://img.shields.io/badge/version-v2.2.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) [![GitHub](https://img.shields.io/badge/GitHub-nulljosh%2Fsparkjar-black?logo=github)](https://github.com/nulljosh/hotaru)
+![version](https://img.shields.io/badge/version-v2.2.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) [![GitHub](https://img.shields.io/badge/GitHub-nulljosh%2Fsparkjar-black?logo=github)](https://github.com/nulljosh/hikko)
 
 A jar of ideas. Post one, vote on others, and every morning a new one shows up on its own.
 
 Each idea gets turned into a build spec and a step-by-step plan, server-side. Upvotes, comments, sign-in. Native apps for iOS, macOS and watchOS.
 
-[Live](https://hotaru.heyitsmejosh.com)
+[Live](https://hikko.heyitsmejosh.com)
 
 <img src="progress.svg" width="460">
 

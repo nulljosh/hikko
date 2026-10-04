@@ -14,7 +14,7 @@
 <script src="/onboarding.js"></script>
     <script src="/webmcp.js" defer></script>
     <link rel="apple-touch-icon" href="/icon-192.svg">
-    <title>Hotaru</title>
+    <title>Hikko</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="tokens.css">
@@ -22,7 +22,7 @@
         /* Every token below must exist in BOTH blocks: an undefined var() is
            not inherited, it drops the declaration, which is how the light
            theme used to lose the fill on .btn and the avatar circle. */
-        /* Hotaru palette: the logo and heyitsmejosh.com/tokens.css. */
+        /* Hikko palette: the logo and heyitsmejosh.com/tokens.css. */
         :root[data-theme="dark"] {
             --bg: #1c1a17;
     --link: #e07856;
@@ -278,7 +278,7 @@
     <main>
         <div class="header">
             <div class="header-left">
-                <h1><img src="/icon.svg" alt="" class="logo-mark">Hotaru</h1>
+                <h1><img src="/icon.svg" alt="" class="logo-mark">Hikko</h1>
             </div>
             <div class="header-right">
                 <div class="bell-wrap" id="bellWrap" style="display:none">
@@ -423,7 +423,7 @@
         <div class="modal-box">
             <span class="close" onclick="document.getElementById('ideaBaseModal').classList.remove('show')">&times;</span>
             <h2 style="margin-bottom:20px">Generate Ideas</h2>
-            <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Enter a topic and Hotaru will generate 8 ideas and seed them into the feed.</p>
+            <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Enter a topic and Hikko will generate 8 ideas and seed them into the feed.</p>
             <div id="ideaBaseError" class="error"></div>
             <input type="text" id="ideaBaseTopic" placeholder="Topic (e.g. sustainable cities, health tech)" maxlength="200">
             <textarea id="ideaBaseDesc" placeholder="Additional context (optional)" maxlength="500" style="margin-top:10px;height:80px"></textarea>
@@ -432,7 +432,7 @@
     </div>
 
     <footer>
-        <span>&copy; 2026 Hotaru. All rights reserved.</span>
+        <span>&copy; 2026 Hikko. All rights reserved.</span>
         <span>
             <a href="https://github.com/nulljosh/spark" target="_blank">GitHub</a>
             &nbsp;&middot;&nbsp;
@@ -1242,7 +1242,7 @@
             finishLabel: 'Get started',
             slides: [
                 { title: 'Ideas, out loud',
-                  body: 'Hotaru is a running feed of startup and project ideas. Read one, riff on it, or post your own.',
+                  body: 'Hikko is a running feed of startup and project ideas. Read one, riff on it, or post your own.',
                   art: '<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/></svg>' },
                 { title: 'Vote the good ones up',
                   body: 'Every idea can be upvoted and argued about in the comments. The best rise to the top of the feed.',

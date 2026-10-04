@@ -45,7 +45,7 @@ targets:
       # violation (same rejection that hit Lexly Mac). Target/scheme/bundle ID
       # deliberately left alone — wiring, not branding.
       INFOPLIST_KEY_CFBundleDisplayName: Hikko
-      PRODUCT_NAME: Hotaru
+      PRODUCT_NAME: Hikko
     entitlements:
       path: SparkMac.entitlements
       properties:

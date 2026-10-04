@@ -150,7 +150,7 @@ struct FeedView: View {
                 }
             }
             .background(Color.paper)
-            .navigationTitle("Hotaru")
+            .navigationTitle("Hikko")
             .searchable(text: $searchText, prompt: "Search posts")
             .navigationDestination(for: Post.self) { post in
                 PostDetailView(post: post)
@@ -807,16 +807,16 @@ struct SettingsSection: View {
             .onChange(of: dailyIdea) { _, on in
                 Task { on ? await DailyIdea.schedule() : DailyIdea.cancel() }
             }
-            Link(destination: URL(string: "https://hotaru.heyitsmejosh.com/support.html")!) {
+            Link(destination: URL(string: "https://hikko.heyitsmejosh.com/support.html")!) {
                 Label("Support", systemImage: "questionmark.circle")
             }
-            Link(destination: URL(string: "https://hotaru.heyitsmejosh.com/tos.html")!) {
+            Link(destination: URL(string: "https://hikko.heyitsmejosh.com/tos.html")!) {
                 Label("Terms and Privacy", systemImage: "doc.text")
             }
         } header: {
             Text("Settings")
         } footer: {
-            Text("Hotaru \(version)")
+            Text("Hikko \(version)")
                 .frame(maxWidth: .infinity)
                 .padding(.top, 12)
         }

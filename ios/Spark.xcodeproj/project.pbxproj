@@ -25,6 +25,7 @@
 		3AA8B6E58C3E58DFFB03C361 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C960C5A9D0E4A37C066CE8E /* Assets.xcassets */; };
 		3AB763D6EB79A52825C41A0B /* WidgetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36144F6E413872BCE8C0CF6 /* WidgetAPI.swift */; };
 		406DB6B6C2317DDE3A7A0A46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255A33F3F797DB0BCEA702E8 /* ContentView.swift */; };
+		4103673983CDA16D8722D9CB /* Hikko.icon in Resources */ = {isa = PBXBuildFile; fileRef = E4DC65B277253D53481F875B /* Hikko.icon */; };
 		47A294EE4FE183EBBF7397CD /* UserProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B888EDFCBF793441DF737D48 /* UserProfileTests.swift */; };
 		4EFC1638CAD5D0389BB4B23D /* SparkWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252262F74DC4F74094B9E99F /* SparkWidgets.swift */; };
 		5007BDF70ECAB68A25A52AA9 /* RFSEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250A1A3E452EAFE4CFA20022 /* RFSEntry.swift */; };
@@ -48,7 +49,6 @@
 		D9CE52F15DCEE57F1C52005E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AE8F06520FF46047DC42 /* AppState.swift */; };
 		DE4910D8269C9AEAE75D98EA /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FC9FCE7C2CE1C146107688 /* CommentsView.swift */; };
 		EA7BD427F8A1AD4589F89CFD /* IdeaBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DF762743CB17D523378AB /* IdeaBase.swift */; };
-		F15A9B620887BB77064C6B8A /* Hotaru.icon in Resources */ = {isa = PBXBuildFile; fileRef = 5F51F95ED0EC5FD298C80ADA /* Hotaru.icon */; };
 		F3249EC16F76847B4ABE6791 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496019FB70124614FA299B74 /* KeychainHelper.swift */; };
 		F3D3F06901EA346A79B0768D /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AE766ACE7A24B15BEB2FF /* IntegrationTests.swift */; };
 		FB8C3417091AAAFBD8BC6402 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DEDE7FBC9391B3EC90CE2136 /* .swiftlint.yml */; };
@@ -109,7 +109,6 @@
 		496019FB70124614FA299B74 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		53B2E282198ED9D5CCE10C83 /* SparkAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkAPITests.swift; sourceTree = "<group>"; };
 		58021A007F206C0665C9B3B0 /* StatsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsProvider.swift; sourceTree = "<group>"; };
-		5F51F95ED0EC5FD298C80ADA /* Hotaru.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = Hotaru.icon; sourceTree = "<group>"; };
 		60FC9FCE7C2CE1C146107688 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		6198C2205B519C65D90BAA74 /* WhatsNewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewSheet.swift; sourceTree = "<group>"; };
 		64F0D485B81F57126B109C50 /* SparkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkAPI.swift; sourceTree = "<group>"; };
@@ -145,6 +144,7 @@
 		DEDE7FBC9391B3EC90CE2136 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DF0AE766ACE7A24B15BEB2FF /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		E188B5AB14AB56062C850BD7 /* Spark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spark.entitlements; sourceTree = "<group>"; };
+		E4DC65B277253D53481F875B /* Hikko.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = Hikko.icon; sourceTree = "<group>"; };
 		E5DA0EC06F704242AF7E70B0 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		FCC6BAE9EE29681504AD6344 /* SparkWidgetsExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SparkWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -199,7 +199,7 @@
 		3389F4D949ECD1C4C7A3FC0B = {
 			isa = PBXGroup;
 			children = (
-				5F51F95ED0EC5FD298C80ADA /* Hotaru.icon */,
+				E4DC65B277253D53481F875B /* Hikko.icon */,
 				37A7F3C1514EFD03DEFEE1BA /* API */,
 				9999C470A131215DD71ABE5A /* ios */,
 				87226969E9F919EE002A3916 /* Models */,
@@ -446,7 +446,7 @@
 			files = (
 				FB8C3417091AAAFBD8BC6402 /* .swiftlint.yml in Resources */,
 				3AA8B6E58C3E58DFFB03C361 /* Assets.xcassets in Resources */,
-				F15A9B620887BB77064C6B8A /* Hotaru.icon in Resources */,
+				4103673983CDA16D8722D9CB /* Hikko.icon in Resources */,
 				08125EF0204EB82912058BF8 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,7 +567,7 @@
 		33114364F6CE0401B88E8F82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Hotaru;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Hikko;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Spark.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -808,7 +808,7 @@
 		FFF81DE56A1C2039DCE38693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Hotaru;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Hikko;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Spark.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
