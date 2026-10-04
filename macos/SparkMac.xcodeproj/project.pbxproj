@@ -512,7 +512,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_CFBundleDisplayName = Sparkjar;
+				INFOPLIST_KEY_CFBundleDisplayName = Hotaru;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -521,7 +521,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.heyitsmejosh.spark;
-				PRODUCT_NAME = Sparkjar;
+				PRODUCT_NAME = Hotaru;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -535,7 +535,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_CFBundleDisplayName = Sparkjar;
+				INFOPLIST_KEY_CFBundleDisplayName = Hotaru;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -544,7 +544,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.heyitsmejosh.spark;
-				PRODUCT_NAME = Sparkjar;
+				PRODUCT_NAME = Hotaru;
 				SDKROOT = macosx;
 			};
 			name = Debug;

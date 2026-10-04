@@ -3,7 +3,7 @@ v2.2.0
 ## Rules
 - Portrait-only, UIRequiresFullScreen
 - Apple Liquid Glass: .ultraThinMaterial, blur, rounded corners, system font
-- Accent: #0071e3 blue
+- Accent: #b5502c terracotta (house accent, matches the landing)
 - No emojis
 - Error banner system for auth and API failures
 - Optimistic voting with debounce and error revert

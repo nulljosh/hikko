@@ -35,7 +35,7 @@ struct PostDetailView: View {
                     if currentPost.enriched == true {
                         Image(systemName: "sparkles")
                             .font(.caption)
-                            .foregroundStyle(.green)
+                            .foregroundStyle(Color(hex: "c98a00"))
                     } else if currentPost.enrichmentRequestedAt != nil {
                         Image(systemName: "clock")
                             .font(.caption)

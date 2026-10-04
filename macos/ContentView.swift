@@ -107,7 +107,8 @@ struct ErrorBanner: View {
 // MARK: - Color Extension
 
 extension Color {
-    static let sparkBlue = Color(hex: "0071e3")
+    // ponytail: old name kept, value is the house terracotta accent (shared with the landing)
+    static let sparkBlue = Color(hex: "b5502c")
 
     init(hex: String) {
         let scanner = Scanner(string: hex)
