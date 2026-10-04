@@ -33,6 +33,7 @@
 		5BB9DD6838440BC8EADDA9B3 /* WhatsNewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6198C2205B519C65D90BAA74 /* WhatsNewSheet.swift */; };
 		5CD2F5C284CF86DFA30CE546 /* SparkWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FCC6BAE9EE29681504AD6344 /* SparkWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		65886B3F202242BC42C24F3E /* StatsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58021A007F206C0665C9B3B0 /* StatsProvider.swift */; };
+		71BE24EAA1A700AAA9BB76CD /* PromoTour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72094F9C74ACA143D955E51E /* PromoTour.swift */; };
 		76E656D417133C9C6FAAB2B7 /* AppStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07602A28278D31BE34810E4E /* AppStateTests.swift */; };
 		793707E228BE00F04A985F48 /* HotPostsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7310D140B001AC5985973BDC /* HotPostsWidget.swift */; };
 		7FE504150AE2C080933FDAFF /* SparkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F0D485B81F57126B109C50 /* SparkAPI.swift */; };
@@ -116,6 +117,7 @@
 		669DF90C12CC52B9665EF8A4 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		6A9AC5F477D30E64C39B5538 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		705DF762743CB17D523378AB /* IdeaBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaBase.swift; sourceTree = "<group>"; };
+		72094F9C74ACA143D955E51E /* PromoTour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoTour.swift; sourceTree = "<group>"; };
 		7310D140B001AC5985973BDC /* HotPostsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotPostsWidget.swift; sourceTree = "<group>"; };
 		7531DEF5E11752F659715CE4 /* SparkUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SparkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C1FA48B378FBAE5DEC3C7E7 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				D9BF0680CE0AA4A14B68BFE5 /* PreviewScreenshot.swift */,
+				72094F9C74ACA143D955E51E /* PromoTour.swift */,
 				A548771F89593961D51C0506 /* SnapshotHelper.swift */,
 			);
 			path = UITests;
@@ -472,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F9F7726F543B6313CE1A5BF /* PreviewScreenshot.swift in Sources */,
+				71BE24EAA1A700AAA9BB76CD /* PromoTour.swift in Sources */,
 				8A40C4860A39DB3D05CDB27B /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

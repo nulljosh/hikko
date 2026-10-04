@@ -1,6 +1,6 @@
-// Bumped to v2 with the shared theme: the cache is read-first, so returning
-// visitors would otherwise keep the old single-theme index.html indefinitely.
-const CACHE = 'spark-v2';
+// v3: network-first. Read-first kept returning visitors on stale pages and
+// stale stylesheets after every deploy; the cache is now only the offline fallback.
+const CACHE = 'hotaru-v3';
 const ASSETS = ['/', '/index.html', '/theme.js', '/icon-192.svg', '/icon-512.svg'];
 
 self.addEventListener('install', e => {
@@ -16,12 +16,14 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  if (e.request.url.includes('/api/')) return;
+  if (e.request.method !== 'GET' || e.request.url.includes('/api/')) return;
   e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request).then(res => {
-      const clone = res.clone();
-      caches.open(CACHE).then(c => c.put(e.request, clone));
+    fetch(e.request).then(res => {
+      if (res.ok && new URL(e.request.url).origin === location.origin) {
+        const clone = res.clone();
+        caches.open(CACHE).then(c => c.put(e.request, clone));
+      }
       return res;
-    }))
+    }).catch(() => caches.match(e.request))
   );
 });

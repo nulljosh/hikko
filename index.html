@@ -97,15 +97,17 @@
   .hero-copy { position: relative; z-index: 2; }
   .hero-wall {
     position: absolute; top: -8%; bottom: -8%; left: 50%; width: 100vw; transform: translateX(-50%); z-index: 0;
-    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px;
-    opacity: 0.5; pointer-events: none; user-select: none;
+    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 14px;
+    opacity: 0.45; pointer-events: none; user-select: none;
   }
-  .wall-col { display: flex; min-width: 0; flex-direction: column; gap: 10px; }
-  .wall-col span {
-    display: block; padding: 0.55rem 0.75rem; background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 10px; font-size: 0.85rem; color: var(--text2);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  .wall-col { display: flex; min-width: 0; flex-direction: column; gap: 14px; }
+  .wall-col i.tile {
+    display: grid; place-items: center; width: 100%; aspect-ratio: 1; max-width: 76px; margin: 0 auto;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; color: var(--text2);
   }
+  .wall-col i.tile svg { width: 42%; height: 42%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .wall-col i.tile.lit { color: #8a6412; box-shadow: 0 0 0 1px rgba(255,202,48,.5), 0 0 22px rgba(255,202,48,.45); }
+  :root[data-theme="dark"] .wall-col i.tile.lit { color: #ffca30; }
   .wall-col.up   { animation: wall-up   var(--dur) linear infinite; }
   .wall-col.down { animation: wall-down var(--dur) linear infinite; }
   @keyframes wall-up   { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
@@ -426,21 +428,69 @@ footer .foot-rule > :last-child { order: 2; }
     var titles = (d.posts || []).map(function (p) { return p.title; }).filter(Boolean);
     build(titles.length >= 12 ? titles : samples);
   }).catch(function () { build(samples); });
+  // One stroked glyph per idea, picked from words in its title.
+  var ICONS = {
+    home:  '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+    cart:  '<path d="M3 4h2l2.4 11h11l2-8H6.2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/>',
+    leaf:  '<path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15"/><path d="M5 19l7-7"/>',
+    bike:  '<circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-7h5l3 7M10 9l3 7"/>',
+    car:   '<path d="M4 16v-4l2-5h12l2 5v4z"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/>',
+    book:  '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/>',
+    chat:  '<path d="M4 5h16v11H9l-5 4z"/>',
+    heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+    pill:  '<rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-35 12 12)"/><path d="M9.5 8.5l5 7"/>',
+    lock:  '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    pin:   '<path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/>',
+    cal:   '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+    coin:  '<circle cx="12" cy="12" r="8"/><path d="M14.5 9.5c-.5-1-1.4-1.5-2.5-1.5-1.5 0-2.5.8-2.5 2s1 1.6 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1.2 0-2.1-.6-2.6-1.6M12 6.5v1.5M12 16v1.5"/>',
+    mail:  '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    music: '<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+    code:  '<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/>',
+    box:   '<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/>',
+    pet:   '<circle cx="7" cy="9" r="1.8"/><circle cx="12" cy="6.5" r="1.8"/><circle cx="17" cy="9" r="1.8"/><path d="M8 17c0-2.5 1.8-4.5 4-4.5s4 2 4 4.5c0 1.4-1.6 2-4 2s-4-.6-4-2z"/>',
+    bulb:  '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>'
+  };
+  var RULES = [
+    [/home|house|apartment|rent|landlord|room|neighbo|furnish|household/i, 'home'],
+    [/grocer|shop|price|cart|store|buy|sell|market|deal|fridge|pantry/i, 'cart'],
+    [/compost|recycl|plant|garden|green|carbon|rain|solar|water/i, 'leaf'],
+    [/bike|run|walk|commute|fitness|workout|posture/i, 'bike'],
+    [/\bcars?\b|taxi|\bride|parking|drive|transit/i, 'car'],
+    [/book|learn|study|language|read|course|school|kata/i, 'book'],
+    [/chat|comment|standup|meeting|social|friend|forum/i, 'chat'],
+    [/health|sleep|mood|care|first-aid|medic/i, 'heart'],
+    [/pill|medicine|dose/i, 'pill'],
+    [/secur|password|privacy|auth|lock/i, 'lock'],
+    [/map|route|travel|local|city|place|lost/i, 'pin'],
+    [/calendar|schedule|remind|habit|daily|week/i, 'cal'],
+    [/budget|money|expense|split|tip|tax|bill|invoice|finance|currency|loan/i, 'coin'],
+    [/mail|email|inbox|newsletter/i, 'mail'],
+    [/music|podcast|song|audio|playlist/i, 'music'],
+    [/code|api|app store|developer|bot|github|dev|program/i, 'code'],
+    [/inventory|tool|ship|deliver|pack|storage|shed/i, 'box'],
+    [/pet|dog|cat\b/i, 'pet']
+  ];
+  function iconFor(title) {
+    for (var i = 0; i < RULES.length; i++) if (RULES[i][0].test(title)) return RULES[i][1];
+    return 'bulb';
+  }
   function build(lines) {
   for (var i = lines.length - 1; i > 0; i--) {  // shuffle so the wall differs each visit
     var j = Math.floor(Math.random() * (i + 1));
     var t = lines[i]; lines[i] = lines[j]; lines[j] = t;
   }
-  var cols = Math.max(3, Math.min(7, Math.ceil(window.innerWidth / 220)));
-  var per = Math.max(4, Math.floor(lines.length / cols));
+  var cols = Math.max(4, Math.min(12, Math.ceil(window.innerWidth / 110)));
+  var per = Math.max(6, Math.floor(lines.length / cols));
   for (var c = 0; c < cols; c++) {
     var col = document.createElement('div');
     col.className = 'wall-col ' + (c % 2 ? 'down' : 'up');
-    col.style.setProperty('--dur', (70 + c * 11) + 's');
+    col.style.setProperty('--dur', (60 + c * 9) + 's');
     var slice = lines.slice(c * per, (c + 1) * per);
-    slice.concat(slice).forEach(function (text) {  // doubled, so the loop is seamless
-      var el = document.createElement('span');
-      el.textContent = text;
+    if (!slice.length) slice = lines.slice(0, per);
+    slice.concat(slice).forEach(function (text, k) {  // doubled, so the loop is seamless
+      var el = document.createElement('i');
+      el.className = 'tile' + ((c * 7 + k) % 9 === 0 ? ' lit' : '');  // a few fireflies in the jar
+      el.innerHTML = '<svg viewBox="0 0 24 24">' + ICONS[iconFor(text)] + '</svg>';
       col.appendChild(el);
     });
     wall.appendChild(col);
