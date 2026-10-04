@@ -164,7 +164,7 @@ struct FeedView: View {
             }
             .frame(minWidth: 320, maxWidth: .infinity, maxHeight: .infinity)
         }
-        .navigationTitle("Sparkjar")
+        .navigationTitle("Hikko")
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button {

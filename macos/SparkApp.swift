@@ -11,6 +11,7 @@ struct SparkApp: App {
                 // ponytail: 820 is the real floor -- sidebar 160 + feed list 280 +
                 // post detail 320. The old 700 let the window shrink below what the
                 // panes need, which is how content ended up clipped off both edges.
+                .tint(.sparkBlue)
                 .frame(minWidth: 820, minHeight: 520)
                 .preferredColorScheme(ProcessInfo.processInfo.arguments.contains("-dark") ? .dark : nil)
                 .onboarding(key: "spark",

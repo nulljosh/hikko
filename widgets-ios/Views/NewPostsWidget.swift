@@ -10,7 +10,7 @@ struct NewPostsWidget: Widget {
                 .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("New Posts")
-        .description("Latest ideas shared on Spark.")
+        .description("Latest ideas shared on Hikko.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
