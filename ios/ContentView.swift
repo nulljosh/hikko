@@ -117,13 +117,10 @@ struct FeedView: View {
         NavigationStack {
             Group {
                 if appState.isFeedLoading && appState.posts.isEmpty {
-                    VStack {
-                        Spacer()
-                        ProgressView("Loading posts...")
-                        Spacer()
-                    }
+                    FireflyLoader(label: "Catching ideas...")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if appState.posts.isEmpty {
-                    ContentUnavailableView("No posts yet", systemImage: "flame", description: Text("Be the first to share an idea."))
+                    ContentUnavailableView("The jar is empty", systemImage: "sparkles", description: Text("Be the first to share an idea."))
                 } else {
                     List {
                         categoryFilterBar
@@ -140,7 +137,7 @@ struct FeedView: View {
                                 NavigationLink(value: post) {
                                     PostCard(post: post)
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(PressableStyle())
                                 .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                                 .listRowSeparator(.hidden)
                                 .listRowBackground(Color.clear)
@@ -177,29 +174,38 @@ struct FeedView: View {
         }
     }
 
+    @Namespace private var chipNamespace
+
     private var categoryFilterBar: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
                 ForEach(categories, id: \.self) { category in
+                    let selected = selectedCategory == category
                     Button {
-                        selectedCategory = category
+                        withAnimation(.spring(duration: 0.35, bounce: 0.3)) { selectedCategory = category }
                     } label: {
-                        Text(category)
+                        Label(category, systemImage: categoryIcon(category))
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 8)
-                            .background(
-                                selectedCategory == category ? Color.sparkBlue : Color.secondary.opacity(0.12),
-                                in: Capsule()
-                            )
-                            .foregroundStyle(selectedCategory == category ? .white : .primary)
+                            .background {
+                                if selected {
+                                    Capsule().fill(Color.sparkBlue)
+                                        .matchedGeometryEffect(id: "chip", in: chipNamespace)
+                                } else {
+                                    Capsule().fill(Color.secondary.opacity(0.12))
+                                }
+                            }
+                            .foregroundStyle(selected ? .white : .primary)
+                            .symbolEffect(.bounce, value: selected)
                     }
                     .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, 16)
         }
+        .sensoryFeedback(.selection, trigger: selectedCategory)
     }
 }
 
@@ -310,7 +316,8 @@ struct CategoryBadge: View {
     let category: String
 
     var body: some View {
-        Text(category)
+        Label(category, systemImage: categoryIcon(category))
+            .labelStyle(BadgeLabelStyle())
             .font(.caption2)
             .fontWeight(.semibold)
             .padding(.horizontal, 8)
@@ -789,6 +796,63 @@ enum DateFormatting {
         guard let date = isoFormatter.date(from: iso)
                 ?? isoFormatterNoFraction.date(from: iso) else { return "" }
         return relativeFormatter.localizedString(for: date, relativeTo: Date())
+    }
+}
+
+// MARK: - Icons and motion
+
+func categoryIcon(_ category: String) -> String {
+    switch category.lowercased() {
+    case "all": "square.grid.2x2"
+    case "technology", "tech": "cpu"
+    case "design", "art": "paintbrush.pointed"
+    case "business", "finance": "briefcase"
+    case "science": "atom"
+    case "productivity": "checkmark.circle"
+    case "health": "heart"
+    case "sustainability": "leaf"
+    case "general": "lightbulb"
+    default: "sparkle"
+    }
+}
+
+struct BadgeLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: 4) {
+            configuration.icon.imageScale(.small)
+            configuration.title
+        }
+    }
+}
+
+// Cards sink a little under the finger.
+struct PressableStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(.spring(duration: 0.25), value: configuration.isPressed)
+    }
+}
+
+// A firefly that breathes while the feed loads.
+struct FireflyLoader: View {
+    let label: String
+
+    var body: some View {
+        VStack(spacing: 18) {
+            PhaseAnimator([false, true]) { lit in
+                Circle()
+                    .fill(Color(hex: "f7c948"))
+                    .frame(width: 22, height: 22)
+                    .shadow(color: Color(hex: "f7c948").opacity(lit ? 0.9 : 0.2), radius: lit ? 22 : 6)
+                    .scaleEffect(lit ? 1.15 : 0.85)
+                    .offset(y: lit ? -6 : 6)
+            } animation: { _ in .easeInOut(duration: 1.1) }
+            Text(label)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+        .accessibilityElement(children: .combine)
     }
 }
 
