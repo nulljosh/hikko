@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- App Store screenshots for the iPhone 6.5-inch and iPad Pro 12.9-inch sets retaken on the 3.0 build after Apple's Guideline 2.3.3 note (they still showed Spark 2.1.1). `ios/scripts/appstore-shots.sh` captures them headlessly with simctl and AXe. iOS 3.0 resubmitted 2026-10-05, same build.
+
 ## [3.0.0] - 2026-10-04
 
 - Sparkjar is now Hikko: app name, icon label, site (hikko.heyitsmejosh.com), repo.
