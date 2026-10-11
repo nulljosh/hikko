@@ -1,5 +1,5 @@
 const Stripe = require('stripe');
-const { supabaseRequest } = require('./_lib/supabase');
+const { sparkRequest } = require('./_lib/spark');
 const { parseToken } = require('./posts');
 
 let stripe;
@@ -30,7 +30,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'GET' && action === 'status') {
     if (!user) return res.status(401).json({ error: 'Authentication required' });
     try {
-      const rows = await supabaseRequest(`users?user_id=eq.${encodeURIComponent(user.userId)}&select=is_pro`);
+      const rows = await sparkRequest(`users?user_id=eq.${encodeURIComponent(user.userId)}&select=is_pro`);
       return res.status(200).json({ isPro: Boolean(rows && rows[0] && rows[0].is_pro) });
     } catch (err) {
       console.error('[STRIPE/status] Error:', err.message);

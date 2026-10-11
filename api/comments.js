@@ -1,9 +1,9 @@
 const { parseToken } = require('./posts');
-const { supabaseRequest } = require('./_lib/supabase');
+const { sparkRequest } = require('./_lib/spark');
 const { getIp, checkRateLimit } = require('./_lib/ratelimit');
 
 async function getComments(postId) {
-  const rows = await supabaseRequest(
+  const rows = await sparkRequest(
     `comments?post_id=eq.${encodeURIComponent(postId)}&select=*&order=created_at.desc`
   );
   return Array.isArray(rows) ? rows : [];
@@ -11,9 +11,9 @@ async function getComments(postId) {
 
 async function getCommentCounts(postIds) {
   // Fetch all comments for the given post IDs and count client-side
-  // Supabase REST doesn't support group-by natively
+  // the REST layer doesn't support group-by natively
   const filter = postIds.map(id => `post_id.eq.${encodeURIComponent(id)}`).join(',');
-  const rows = await supabaseRequest(
+  const rows = await sparkRequest(
     `comments?or=(${filter})&select=post_id`
   );
   const counts = {};
@@ -34,10 +34,10 @@ async function addComment({ postId, content, user }) {
     content,
     created_at: new Date().toISOString()
   };
-  const rows = await supabaseRequest('comments', {
+  const rows = await sparkRequest('comments', {
     method: 'POST',
     // Same as posts: authenticated_insert_comments admits only the
-    // `authenticated` role, and this app's own JWT auth means Supabase sees
+    // `authenticated` role, and this app's own JWT auth means spark-api sees
     // `anon`, so inserts were blocked by RLS.
     useServiceRole: true,
     body: comment

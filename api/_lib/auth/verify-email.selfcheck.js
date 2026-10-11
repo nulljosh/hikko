@@ -1,6 +1,6 @@
 // Self-check for the email-verification handler.
 //
-// Runs the real handler against an in-memory stand-in for the Supabase-backed
+// Runs the real handler against an in-memory stand-in for the spark-api-backed
 // store, so it exercises the branch logic that matters: a good token verifies,
 // the same token cannot be reused, and an unknown/missing token fails closed.
 //

@@ -1,8 +1,8 @@
 const { parseCookie, resolveSession, verifyToken } = require('./_lib/store');
-const { supabaseRequest, supabaseRpc } = require('./_lib/supabase');
+const { sparkRequest, sparkRpc } = require('./_lib/spark');
 const { getIp, checkRateLimit } = require('./_lib/ratelimit');
 
-// Minimal seed data kept only as offline fallback when Supabase is unreachable.
+// Minimal seed data kept only as offline fallback when spark-api is unreachable.
 // The canonical seed data lives in schema.sql. This array is never written to the DB.
 const seedPosts = [
   { id: 'seed-1', title: 'A simple app that reminds you to use stuff you already own', content: 'I have books I bought and never read, a guitar collecting dust, a gym membership I forget about. Just a list of things you own with gentle nudges to actually use them.', category: 'productivity', author_username: 'spark', author_user_id: 'system', score: 247, created_at: '2026-01-10T09:20:00Z' },
@@ -62,7 +62,7 @@ async function getPostsFromDataSource({ limit, offset } = {}) {
   let query = `posts?select=${LIST_COLUMNS}&order=pinned_until.desc.nullslast,score.desc,created_at.desc`;
   if (Number.isFinite(limit)) query += `&limit=${limit}`;
   if (Number.isFinite(offset)) query += `&offset=${offset}`;
-  const rows = await supabaseRequest(query);
+  const rows = await sparkRequest(query);
 
   if (!Array.isArray(rows) || rows.length === 0) {
     // DB is empty -- schema.sql seeds should have run.
@@ -86,10 +86,10 @@ async function addPostToDataSource({ title, content, category, linked_repo, date
     time: time || null
   };
 
-  const rows = await supabaseRequest('posts', {
+  const rows = await sparkRequest('posts', {
     method: 'POST',
     // RLS policy authenticated_insert_posts only admits the `authenticated`
-    // role. This app does its own JWT auth, so Supabase always sees `anon` and
+    // role. This app does its own JWT auth, so spark-api always sees `anon` and
     // rejected every insert with "new row violates row-level security policy".
     // Same reason the DELETE path below already sets this.
     useServiceRole: true,
@@ -118,8 +118,8 @@ async function votePostInDataSource({ id, voteType, user }) {
 
   const delta = voteType === 'up' ? 1 : -1;
 
-  // Atomic increment via Supabase RPC -- no read-modify-write race condition
-  const newScore = await supabaseRpc('increment_score', {
+  // Atomic increment via spark-api RPC -- no read-modify-write race condition
+  const newScore = await sparkRpc('increment_score', {
     post_id: id,
     delta
   }, { useServiceRole: true });
@@ -166,7 +166,7 @@ module.exports = async function handler(req, res) {
 
     try {
       // Fetch the post to verify ownership
-      const rows = await supabaseRequest(`posts?id=eq.${encodeURIComponent(id)}&select=*`);
+      const rows = await sparkRequest(`posts?id=eq.${encodeURIComponent(id)}&select=*`);
       const post = Array.isArray(rows) ? rows[0] : null;
 
       if (!post) {
@@ -179,8 +179,8 @@ module.exports = async function handler(req, res) {
 
       // Ownership is enforced above in JS. Use the service role so the delete
       // isn't silently dropped by RLS (which keys off auth.uid(), absent here).
-      // Requires SUPABASE_SERVICE_ROLE_KEY in env to actually remove the row.
-      await supabaseRequest(`posts?id=eq.${encodeURIComponent(id)}`, {
+      // Requires SPARK_SERVICE_KEY in env to actually remove the row.
+      await sparkRequest(`posts?id=eq.${encodeURIComponent(id)}`, {
         method: 'DELETE',
         useServiceRole: true
       });
@@ -198,7 +198,7 @@ module.exports = async function handler(req, res) {
   // pane ended up rendering a title and nothing else.
   if (id && req.method === 'GET') {
     try {
-      const rows = await supabaseRequest(`posts?id=eq.${encodeURIComponent(id)}&select=*`);
+      const rows = await sparkRequest(`posts?id=eq.${encodeURIComponent(id)}&select=*`);
       const row = Array.isArray(rows) ? rows[0] : null;
       if (!row) return res.status(404).json({ error: 'Post not found' });
       return res.status(200).json({ post: rowToPost(row) });
@@ -218,8 +218,8 @@ module.exports = async function handler(req, res) {
       });
       return res.status(200).json({ posts });
     } catch (err) {
-      console.error('[POSTS] Supabase fetch failed:', err.message);
-      // Return seed data as fallback when Supabase is unreachable
+      console.error('[POSTS] spark-api fetch failed:', err.message);
+      // Return seed data as fallback when spark-api is unreachable
       return res.status(200).json({ posts: seedPosts.map(rowToPost) });
     }
   }
@@ -232,7 +232,7 @@ module.exports = async function handler(req, res) {
 
     let isPro = false;
     try {
-      const rows = await supabaseRequest(`users?user_id=eq.${encodeURIComponent(user.userId)}&select=is_pro`);
+      const rows = await sparkRequest(`users?user_id=eq.${encodeURIComponent(user.userId)}&select=is_pro`);
       isPro = Boolean(rows && rows[0] && rows[0].is_pro);
     } catch (err) {
       console.error('[POSTS] Pro status lookup failed:', err.message);

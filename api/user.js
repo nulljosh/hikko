@@ -1,4 +1,4 @@
-const { supabaseRequest } = require('./_lib/supabase');
+const { sparkRequest } = require('./_lib/spark');
 const { rowToPost } = require('./posts');
 
 module.exports = async function handler(req, res) {
@@ -12,10 +12,10 @@ module.exports = async function handler(req, res) {
     // Fetch user
     let userRows;
     try {
-      userRows = await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}&select=id,username,created_at,avatar_url`);
+      userRows = await sparkRequest(`users?username=eq.${encodeURIComponent(username)}&select=id,username,created_at,avatar_url`);
     } catch (e) {
       // avatar_url migration (20260428000007) may not be applied yet
-      userRows = await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}&select=id,username,created_at`);
+      userRows = await sparkRequest(`users?username=eq.${encodeURIComponent(username)}&select=id,username,created_at`);
     }
     if (!Array.isArray(userRows) || userRows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
@@ -24,7 +24,7 @@ module.exports = async function handler(req, res) {
     const user = userRows[0];
     
     // Fetch user's posts
-    const postRows = await supabaseRequest(`posts?author_username=eq.${encodeURIComponent(username)}&select=*&order=created_at.desc`);
+    const postRows = await sparkRequest(`posts?author_username=eq.${encodeURIComponent(username)}&select=*&order=created_at.desc`);
     const posts = Array.isArray(postRows) ? postRows.map(rowToPost) : [];
     
     // Calculate stats

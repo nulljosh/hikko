@@ -1,5 +1,5 @@
 const { parseCookie, resolveSession, verifyToken } = require('../store');
-const { supabaseRequest } = require('../supabase');
+const { sparkRequest } = require('../spark');
 
 function parseToken(authHeader, cookieHeader) {
   if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -29,7 +29,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    await supabaseRequest(`users?user_id=eq.${encodeURIComponent(identity.userId)}`, {
+    await sparkRequest(`users?user_id=eq.${encodeURIComponent(identity.userId)}`, {
       method: 'DELETE',
       useServiceRole: true
     });

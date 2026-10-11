@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { getSupabaseConfig, supabaseRequest } = require('../_lib/supabase');
+const { getSparkConfig, sparkRequest } = require('../_lib/spark');
 
 // Read lazily, not at module load. On Vercel env vars exist when the module is
 // first required; on Cloudflare Workers bindings are only attached per-request,
@@ -18,18 +18,12 @@ const JWT_EXPIRES_IN = '7d';
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 const BCRYPT_ROUNDS = 10;
 
-function useSupabase() {
-  // getSupabaseConfig returns { url, anonKey, serviceRoleKey } -- there is no
-  // `key` property. Destructuring `key` yielded undefined, so this always
-  // returned false and EVERY auth path silently skipped Supabase for the
-  // ephemeral /tmp store. Accounts never persisted, which is what App Review
-  // hit as "unable to sign up or sign in". posts.js was unaffected because it
-  // calls supabaseRequest directly rather than gating on this.
-  const { url, anonKey, serviceRoleKey } = getSupabaseConfig();
-  return !!(url && (anonKey || serviceRoleKey));
+function useSpark() {
+  const { url, key } = getSparkConfig();
+  return !!(url && key);
 }
 
-// Password hashing (bcrypt -- matches existing Supabase data)
+// Password hashing (bcrypt -- matches the accounts imported from before the move)
 function hashPassword(password) {
   const hash = bcrypt.hashSync(password, BCRYPT_ROUNDS);
   return hash;
@@ -61,9 +55,9 @@ function verifyToken(token) {
   }
 }
 
-// Map Supabase user row to internal format
-// Supabase schema: id (UUID), username, password (bcrypt), email, created_at, updated_at
-function mapSupabaseUser(row) {
+// Map spark-api user row to internal format
+// spark-api schema: id (UUID), username, password (bcrypt), email, created_at, updated_at
+function mapUser(row) {
   if (!row) return null;
   return {
     // Prefer the app-level user_id over the serial PK, matching the GitHub and
@@ -78,14 +72,14 @@ function mapSupabaseUser(row) {
   };
 }
 
-// User CRUD -- Supabase with /tmp fallback
+// User CRUD -- spark-api with /tmp fallback
 async function findUserByUsername(username) {
-  if (useSupabase()) {
+  if (useSpark()) {
     try {
       // Service role required: this reads password_hash to verify logins, and the
       // anon role no longer holds column privileges on the sensitive columns.
-      const rows = await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}&select=*`, { useServiceRole: true });
-      if (Array.isArray(rows) && rows.length > 0) return mapSupabaseUser(rows[0]);
+      const rows = await sparkRequest(`users?username=eq.${encodeURIComponent(username)}&select=*`, { useServiceRole: true });
+      if (Array.isArray(rows) && rows.length > 0) return mapUser(rows[0]);
     } catch {
       // fall through to /tmp
     }
@@ -99,14 +93,14 @@ async function createUser({ username, email, password }) {
 
   const hash = hashPassword(password);
 
-  if (useSupabase()) {
+  if (useSpark()) {
     try {
       // useServiceRole is required: RLS policy no_direct_write_users blocks all
       // anon INSERTs on users. Without it this threw and silently fell through
       // to /tmp, which on Vercel is per-instance and ephemeral -- so email
       // sign-ups appeared to succeed and then vanished. Matches the GitHub and
       // Apple paths, which already do this.
-      const rows = await supabaseRequest('users', {
+      const rows = await sparkRequest('users', {
         method: 'POST',
         useServiceRole: true,
         body: {
@@ -121,13 +115,13 @@ async function createUser({ username, email, password }) {
         }
       });
       const row = Array.isArray(rows) ? rows[0] : rows;
-      return mapSupabaseUser(row);
+      return mapUser(row);
     } catch (err) {
       // Do NOT swallow this silently. A failure here falls through to the /tmp
       // store, which on Vercel is per-instance and ephemeral -- the account
       // looks created and then does not exist. That silent fallback is what
       // hid a production-wide sign-up outage until App Review caught it.
-      console.error('[AUTH] Supabase createUser failed, falling back to /tmp:', err && err.message);
+      console.error('[AUTH] spark-api createUser failed, falling back to /tmp:', err && err.message);
     }
   }
 
@@ -158,10 +152,10 @@ function deriveUser(username, password) {
 // not exist — the exact failure App Review reported as "unable to sign up or
 // sign in", and what several comments above are working around.
 //
-// Supabase is now the only real user store. The in-memory map below exists so
+// spark-api is now the only real user store. The in-memory map below exists so
 // the auth tests have something to write to; it is opt-in via
 // SPARK_ALLOW_MEMORY_STORE=1 and must never be set in production, where a
-// missing Supabase config has to fail loudly rather than silently "succeed".
+// missing spark-api config has to fail loudly rather than silently "succeed".
 const memoryUsers = new Map();
 
 function memoryStoreEnabled() {
@@ -179,7 +173,7 @@ function findUserLocal(username) {
 
 function createUserLocal(user) {
   if (!memoryStoreEnabled()) {
-    throw new Error('user_store_unavailable: Supabase is not configured');
+    throw new Error('user_store_unavailable: spark-api is not configured');
   }
   memoryUsers.set(user.username, user);
   return user;
@@ -252,24 +246,24 @@ function setSessionCookie(res, sessionId) {
   }
 }
 
-// Find user by email (Supabase only)
+// Find user by email (spark-api only)
 async function findUserByEmail(email) {
-  if (!email || !useSupabase()) return null;
+  if (!email || !useSpark()) return null;
   try {
     // Service role required: filters on `email` and reads password_hash, both of
     // which the anon role no longer has column privileges for.
-    const rows = await supabaseRequest(`users?email=eq.${encodeURIComponent(email)}&select=*`, { useServiceRole: true });
-    if (Array.isArray(rows) && rows.length > 0) return mapSupabaseUser(rows[0]);
+    const rows = await sparkRequest(`users?email=eq.${encodeURIComponent(email)}&select=*`, { useServiceRole: true });
+    if (Array.isArray(rows) && rows.length > 0) return mapUser(rows[0]);
   } catch {
     // fall through
   }
   return null;
 }
 
-// Set reset token on user (Supabase only -- /tmp fallback not supported for resets)
+// Set reset token on user (spark-api only -- /tmp fallback not supported for resets)
 async function setResetToken(username, token, expires) {
-  if (!useSupabase()) return false;
-  await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}`, {
+  if (!useSpark()) return false;
+  await sparkRequest(`users?username=eq.${encodeURIComponent(username)}`, {
     method: 'PATCH',
     useServiceRole: true,
     body: { reset_token: token, reset_token_expires: expires.toISOString() }
@@ -279,14 +273,14 @@ async function setResetToken(username, token, expires) {
 
 // Find user by reset token (validates expiry)
 async function findUserByResetToken(token) {
-  if (!token || !useSupabase()) return null;
+  if (!token || !useSpark()) return null;
   try {
     // Service role required: filters on `reset_token`, which anon can no longer read.
-    const rows = await supabaseRequest(`users?reset_token=eq.${encodeURIComponent(token)}&select=*`, { useServiceRole: true });
+    const rows = await sparkRequest(`users?reset_token=eq.${encodeURIComponent(token)}&select=*`, { useServiceRole: true });
     if (!Array.isArray(rows) || rows.length === 0) return null;
     const row = rows[0];
     if (row.reset_token_expires && new Date(row.reset_token_expires) < new Date()) return null;
-    return mapSupabaseUser(row);
+    return mapUser(row);
   } catch {
     return null;
   }
@@ -294,8 +288,8 @@ async function findUserByResetToken(token) {
 
 // Clear reset token after use
 async function clearResetToken(username) {
-  if (!useSupabase()) return false;
-  await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}`, {
+  if (!useSpark()) return false;
+  await sparkRequest(`users?username=eq.${encodeURIComponent(username)}`, {
     method: 'PATCH',
     useServiceRole: true,
     body: { reset_token: null, reset_token_expires: null }
@@ -303,12 +297,12 @@ async function clearResetToken(username) {
   return true;
 }
 
-// Email verification tokens (Supabase only, same as reset tokens above).
+// Email verification tokens (spark-api only, same as reset tokens above).
 // ponytail: no expiry — an unverified account is not privileged, so a stale
 // verify link costs nothing. Add an expires column if that changes.
 async function setVerifyToken(username, token) {
-  if (!useSupabase()) return false;
-  await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}`, {
+  if (!useSpark()) return false;
+  await sparkRequest(`users?username=eq.${encodeURIComponent(username)}`, {
     method: 'PATCH',
     useServiceRole: true,
     body: { verify_token: token }
@@ -317,11 +311,11 @@ async function setVerifyToken(username, token) {
 }
 
 async function findUserByVerifyToken(token) {
-  if (!token || !useSupabase()) return null;
+  if (!token || !useSpark()) return null;
   try {
-    const rows = await supabaseRequest(`users?verify_token=eq.${encodeURIComponent(token)}&select=*`, { useServiceRole: true });
+    const rows = await sparkRequest(`users?verify_token=eq.${encodeURIComponent(token)}&select=*`, { useServiceRole: true });
     if (!Array.isArray(rows) || rows.length === 0) return null;
-    return mapSupabaseUser(rows[0]);
+    return mapUser(rows[0]);
   } catch {
     return null;
   }
@@ -329,8 +323,8 @@ async function findUserByVerifyToken(token) {
 
 // Consumes the token, so a link only works once.
 async function markVerified(username) {
-  if (!useSupabase()) return false;
-  await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}`, {
+  if (!useSpark()) return false;
+  await sparkRequest(`users?username=eq.${encodeURIComponent(username)}`, {
     method: 'PATCH',
     useServiceRole: true,
     body: { verified: true, verify_token: null }
@@ -341,8 +335,8 @@ async function markVerified(username) {
 // Update password hash
 async function updatePassword(username, newPassword) {
   const hash = hashPassword(newPassword);
-  if (useSupabase()) {
-    await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}`, {
+  if (useSpark()) {
+    await sparkRequest(`users?username=eq.${encodeURIComponent(username)}`, {
       method: 'PATCH',
       useServiceRole: true,
       body: { password_hash: hash }

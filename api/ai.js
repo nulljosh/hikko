@@ -1,6 +1,6 @@
 // Unified AI handler — enrich, idea-base, notes
 // Routes by ?type= to stay under Vercel Hobby 12-function limit.
-const { supabaseRequest } = require('./_lib/supabase');
+const { sparkRequest } = require('./_lib/spark');
 const { parseToken } = require('./posts');
 const { getIp, checkRateLimit } = require('./_lib/ratelimit');
 
@@ -70,7 +70,7 @@ async function handleGenerate(req, res) {
   const isDaemon = process.env.SPARK_DAEMON_SECRET && auth === 'Bearer ' + process.env.SPARK_DAEMON_SECRET;
   if (!isCron && !isDaemon) return res.status(401).json({ error: 'Unauthorized' });
 
-  const recent = await supabaseRequest('posts?select=title&order=created_at.desc&limit=20');
+  const recent = await sparkRequest('posts?select=title&order=created_at.desc&limit=20');
   const titles = (Array.isArray(recent) ? recent : []).map(r => r.title);
   const recentTitles = titles.map(t => '- ' + t).join('\n');
 
@@ -97,7 +97,7 @@ async function handleGenerate(req, res) {
   if (idea.repeat) return res.status(422).json({ error: 'Idea too close to a recent post', raw: idea.repeat });
   if (!idea.title || !idea.content) return res.status(422).json({ error: 'Incomplete idea', raw: text.slice(0, 300) });
 
-  const rows = await supabaseRequest('posts', {
+  const rows = await sparkRequest('posts', {
     method: 'POST',
     body: {
       id: 'post-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
@@ -138,7 +138,7 @@ async function handleEnrich(req, res) {
 
     // No client-supplied spec/plan (daemon path) -> generate them with Gemma.
     if (!spec || !plan) {
-      const rows = await supabaseRequest(`posts?id=eq.${encodeURIComponent(id)}&select=title,content,category`);
+      const rows = await sparkRequest(`posts?id=eq.${encodeURIComponent(id)}&select=title,content,category`);
       if (!Array.isArray(rows) || !rows.length) return res.status(404).json({ error: 'Post not found' });
       const p = rows[0];
       const text = await callGemma(
@@ -154,7 +154,7 @@ async function handleEnrich(req, res) {
       if (!spec || !plan) return res.status(422).json({ error: 'Incomplete enrichment', raw: text.slice(0, 300) });
     }
 
-    await supabaseRequest(`posts?id=eq.${encodeURIComponent(id)}`, {
+    await sparkRequest(`posts?id=eq.${encodeURIComponent(id)}`, {
       method: 'PATCH',
       body: {
         enriched: true,
@@ -176,7 +176,7 @@ async function handleEnrich(req, res) {
 async function handleIdeaBase(req, res) {
   if (req.method === 'GET') {
     const offset = Number.parseInt(req.query && req.query.offset, 10) || 0;
-    const rows = await supabaseRequest(`idea_bases?order=created_at.desc&limit=50&offset=${offset}`);
+    const rows = await sparkRequest(`idea_bases?order=created_at.desc&limit=50&offset=${offset}`);
     return res.status(200).json({ ideaBases: Array.isArray(rows) ? rows : [] });
   }
 
@@ -195,7 +195,7 @@ async function handleIdeaBase(req, res) {
       return res.status(400).json({ error: 'post_ids array required' });
     }
 
-    const rows = await supabaseRequest('idea_bases', {
+    const rows = await sparkRequest('idea_bases', {
       method: 'POST',
       body: {
         topic,
@@ -268,7 +268,7 @@ async function handleNotes(req, res) {
   const id = req.query && req.query.id;
   if (!id) return res.status(400).json({ error: 'id required' });
 
-  const rows = await supabaseRequest(
+  const rows = await sparkRequest(
     `posts?id=eq.${encodeURIComponent(id)}&select=id,title,content,category,score,linked_repo,enrichment_plan,enrichment_spec,created_at`
   );
 
