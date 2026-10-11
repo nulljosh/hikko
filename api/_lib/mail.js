@@ -9,7 +9,7 @@
 //
 // Env vars:
 //   RESEND_API_KEY  — optional fallback transport
-//   MAIL_FROM       — optional, defaults to noreply@sparkjar.heyitsmejosh.com
+//   MAIL_FROM       — optional, defaults to noreply@jaybulb.com
 //   APP_URL         — optional, base for verify/reset links
 //
 // ponytail: plain fetch against the REST endpoint instead of the `resend` SDK.
@@ -63,7 +63,7 @@ function _setClient(client) {
 }
 
 function from() {
-  return process.env.MAIL_FROM || 'Spark <noreply@sparkjar.heyitsmejosh.com>';
+  return process.env.MAIL_FROM || 'Hikko <noreply@jaybulb.com>';
 }
 
 // No-ops when Resend is unconfigured so a missing env var degrades to "no email"
@@ -96,7 +96,7 @@ async function sendMail({ to, subject, text, html }) {
 }
 
 function baseUrl() {
-  return process.env.APP_URL || 'https://sparkjar.heyitsmejosh.com';
+  return process.env.APP_URL || 'https://hikko.jaybulb.com';
 }
 
 module.exports = { sendMail, baseUrl, from, hasTransport, _setClient };

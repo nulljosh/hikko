@@ -51,7 +51,7 @@ const MSG = { to: 'a@b.com', subject: 'Subj', text: 'plain', html: '<p>html</p>'
   assert.strictEqual(sent[0].subject, MSG.subject);
   assert.strictEqual(sent[0].text, MSG.text, 'text body must not be dropped');
   assert.strictEqual(sent[0].html, MSG.html, 'html body must not be dropped');
-  assert.ok(/@sparkjar\.heyitsmejosh\.com>$/.test(sent[0].from), 'default From should be the sparkjar domain');
+  assert.ok(/@jaybulb\.com>$/.test(sent[0].from), 'default From should be the jaybulb domain');
 
   // 3. A provider error surfaces rather than being reported as a success.
   nextError = 'domain not verified';
@@ -59,14 +59,14 @@ const MSG = { to: 'a@b.com', subject: 'Subj', text: 'plain', html: '<p>html</p>'
   nextError = null;
 
   // 4. Overrides are honoured — MAIL_FROM is the interim escape hatch while
-  //    sparkjar.heyitsmejosh.com is still unverified in Resend.
+  //    noreply@jaybulb.com is the verified Resend sender since 2026-10-11.
   sent = [];
   const over = freshMail({ RESEND_API_KEY: 're_test', MAIL_FROM: 'Spark <noreply@epiphany.heyitsmejosh.com>' });
   await over.sendMail(MSG);
   assert.strictEqual(sent[0].from, 'Spark <noreply@epiphany.heyitsmejosh.com>');
 
   // 5. Link bases come from APP_URL, with the live host as the fallback.
-  assert.strictEqual(freshMail({}).baseUrl(), 'https://sparkjar.heyitsmejosh.com');
+  assert.strictEqual(freshMail({}).baseUrl(), 'https://hikko.jaybulb.com');
   assert.strictEqual(freshMail({ APP_URL: 'https://x.test' }).baseUrl(), 'https://x.test');
 
   console.log('mail selfcheck: OK');
