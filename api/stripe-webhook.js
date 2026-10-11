@@ -1,5 +1,5 @@
 const Stripe = require('stripe');
-const { supabaseRequest } = require('./_lib/supabase');
+const { sparkRequest } = require('./_lib/spark');
 
 let stripe;
 // createFetchHttpClient: workerd has no node:http, which the SDK's default
@@ -42,7 +42,7 @@ module.exports = async function handler(req, res) {
     const userId = session.client_reference_id;
     if (userId) {
       try {
-        await supabaseRequest(`users?user_id=eq.${encodeURIComponent(userId)}`, {
+        await sparkRequest(`users?user_id=eq.${encodeURIComponent(userId)}`, {
           method: 'PATCH',
           body: { is_pro: true },
           useServiceRole: true,

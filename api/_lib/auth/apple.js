@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const { supabaseRequest } = require('../supabase');
+const { sparkRequest } = require('../spark');
 const { createSession, issueToken, setSessionCookie } = require('../store');
 
 const APPLE_ISSUER = 'https://appleid.apple.com';
@@ -72,7 +72,7 @@ function sanitizeUsername(base) {
 
 async function pickUniqueUsername(base, suffixSource) {
   let username = sanitizeUsername(base);
-  const existing = await supabaseRequest(
+  const existing = await sparkRequest(
     `users?username=eq.${encodeURIComponent(username)}&select=id`,
     { useServiceRole: true }
   ).catch(() => []);
@@ -130,7 +130,7 @@ module.exports = async function handler(req, res) {
   const email = payload.email || clientEmail || null;
 
   try {
-    let rows = await supabaseRequest(
+    let rows = await sparkRequest(
       `users?apple_id=eq.${encodeURIComponent(appleId)}&select=*`,
       { useServiceRole: true }
     ).catch(() => []);
@@ -138,13 +138,13 @@ module.exports = async function handler(req, res) {
 
     if (!user && email) {
       // Link to an existing account that already owns this email.
-      rows = await supabaseRequest(
+      rows = await sparkRequest(
         `users?email=eq.${encodeURIComponent(email)}&select=*`,
         { useServiceRole: true }
       ).catch(() => []);
       if (Array.isArray(rows) && rows.length > 0) {
         user = rows[0];
-        await supabaseRequest(`users?id=eq.${user.id}`, {
+        await sparkRequest(`users?id=eq.${user.id}`, {
           method: 'PATCH',
           useServiceRole: true,
           body: { apple_id: appleId }
@@ -163,7 +163,7 @@ module.exports = async function handler(req, res) {
       const username = await pickUniqueUsername(nameSeed, appleId);
       const userId = `ap-${crypto.randomBytes(8).toString('hex')}`;
 
-      const newRows = await supabaseRequest('users', {
+      const newRows = await sparkRequest('users', {
         method: 'POST',
         useServiceRole: true,
         body: {

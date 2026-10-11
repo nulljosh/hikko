@@ -19,7 +19,7 @@ APPLE_CLIENT_ID = "com.heyitsmejosh.spark"
 
 # Secrets are NOT set here. Set them with:
 #   npx wrangler pages secret put <NAME> --project-name sparkjar
-# Required: JWT_SECRET, SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY
+# Required: JWT_SECRET, SPARK_SERVICE_KEY (the spark-api Worker at api.heyitsmejosh.com holds the data)
 # Optional: RESEND_API_KEY, MAIL_FROM, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET,
 #           STRIPE_PRICE_ID, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET,
 #           GEMMA_KEY, SPARK_DAEMON_SECRET

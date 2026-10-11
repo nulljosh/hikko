@@ -1,5 +1,5 @@
 const { parseCookie, resolveSession, verifyToken } = require('./_lib/store');
-const { supabaseRequest, supabaseStorageUpload } = require('./_lib/supabase');
+const { sparkRequest, sparkStorageUpload } = require('./_lib/spark');
 
 const AVATAR_BUCKET = 'spark-avatars';
 
@@ -36,14 +36,14 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'Image too large (max 2MB)' });
     }
 
-    const avatarUrl = await supabaseStorageUpload(
+    const avatarUrl = await sparkStorageUpload(
       AVATAR_BUCKET,
       `${user.userId}-${Date.now()}.${ext}`,
       buffer,
       contentType
     );
 
-    await supabaseRequest(
+    await sparkRequest(
       `users?user_id=eq.${encodeURIComponent(user.userId)}`,
       { method: 'PATCH', body: { avatar_url: avatarUrl }, useServiceRole: true }
     );

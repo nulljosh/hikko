@@ -1,4 +1,4 @@
-const { supabaseRequest } = require('./_lib/supabase');
+const { sparkRequest } = require('./_lib/spark');
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -6,7 +6,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const rows = await supabaseRequest('users?select=id,username,created_at&order=created_at.desc');
+    const rows = await sparkRequest('users?select=id,username,created_at&order=created_at.desc');
     
     if (!Array.isArray(rows)) {
       return res.status(200).json({ users: [] });

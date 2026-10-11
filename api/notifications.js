@@ -1,5 +1,5 @@
 const { parseToken } = require('./posts');
-const { supabaseRequest } = require('./_lib/supabase');
+const { sparkRequest } = require('./_lib/spark');
 
 async function createNotification({ type, postId, postTitle, actorUsername, targetUserId }) {
   if (!targetUserId) return null;
@@ -14,7 +14,7 @@ async function createNotification({ type, postId, postTitle, actorUsername, targ
       read: false,
       created_at: new Date().toISOString()
     };
-    const rows = await supabaseRequest('notifications', {
+    const rows = await sparkRequest('notifications', {
       method: 'POST',
       body: notif
     });
@@ -26,7 +26,7 @@ async function createNotification({ type, postId, postTitle, actorUsername, targ
 
 async function getNotifications(userId) {
   try {
-    const rows = await supabaseRequest(
+    const rows = await sparkRequest(
       `notifications?target_user_id=eq.${encodeURIComponent(userId)}&select=*&order=created_at.desc&limit=50`
     );
     return Array.isArray(rows) ? rows : [];
@@ -37,7 +37,7 @@ async function getNotifications(userId) {
 
 async function markRead(notifId, userId) {
   try {
-    await supabaseRequest(
+    await sparkRequest(
       `notifications?id=eq.${encodeURIComponent(notifId)}&target_user_id=eq.${encodeURIComponent(userId)}`,
       { method: 'PATCH', body: { read: true } }
     );
@@ -49,7 +49,7 @@ async function markRead(notifId, userId) {
 
 async function markAllRead(userId) {
   try {
-    await supabaseRequest(
+    await sparkRequest(
       `notifications?target_user_id=eq.${encodeURIComponent(userId)}&read=eq.false`,
       { method: 'PATCH', body: { read: true } }
     );

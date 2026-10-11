@@ -1,4 +1,4 @@
-const { supabaseRequest } = require('../supabase');
+const { sparkRequest } = require('../spark');
 const { createSession, issueToken, setSessionCookie } = require('../store');
 
 const SITE_URL = process.env.SITE_URL || 'https://sparkjar.heyitsmejosh.com';
@@ -44,15 +44,15 @@ module.exports = async function handler(req, res) {
     const gh = await getGithubUser(accessToken);
 
     // Find existing user by github_id
-    let rows = await supabaseRequest(`users?github_id=eq.${encodeURIComponent(gh.id)}&select=*`, { useServiceRole: true }).catch(() => []);
+    let rows = await sparkRequest(`users?github_id=eq.${encodeURIComponent(gh.id)}&select=*`, { useServiceRole: true }).catch(() => []);
     let user = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
 
     if (!user && gh.email) {
       // Try linking to existing email account
-      rows = await supabaseRequest(`users?email=eq.${encodeURIComponent(gh.email)}&select=*`, { useServiceRole: true }).catch(() => []);
+      rows = await sparkRequest(`users?email=eq.${encodeURIComponent(gh.email)}&select=*`, { useServiceRole: true }).catch(() => []);
       if (Array.isArray(rows) && rows.length > 0) {
         user = rows[0];
-        await supabaseRequest(`users?id=eq.${user.id}`, {
+        await sparkRequest(`users?id=eq.${user.id}`, {
           method: 'PATCH', useServiceRole: true,
           body: { github_id: gh.id, avatar_url: gh.avatar },
         }).catch(() => {});
@@ -62,12 +62,12 @@ module.exports = async function handler(req, res) {
     if (!user) {
       // Create new account; pick a unique username from GitHub login
       let username = gh.login.replace(/[^a-zA-Z0-9_]/g, '_').slice(0, 24);
-      const existing = await supabaseRequest(`users?username=eq.${encodeURIComponent(username)}&select=id`, { useServiceRole: true }).catch(() => []);
+      const existing = await sparkRequest(`users?username=eq.${encodeURIComponent(username)}&select=id`, { useServiceRole: true }).catch(() => []);
       if (Array.isArray(existing) && existing.length > 0) username = `${username}_${gh.id.slice(-4)}`;
 
       const crypto = require('crypto');
       const userId = `gh-${crypto.randomBytes(8).toString('hex')}`;
-      const newRows = await supabaseRequest('users', {
+      const newRows = await sparkRequest('users', {
         method: 'POST', useServiceRole: true,
         body: {
           user_id: userId, username, email: gh.email || null,
