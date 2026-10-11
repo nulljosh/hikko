@@ -6,6 +6,6 @@ Description: Hikko is a minimal idea forum. Post an idea, vote on the ones you l
 
 Category: Productivity / Social
 
-Links: https://hikko.heyitsmejosh.com · https://apps.apple.com/app/id6785162492 · https://github.com/nulljosh/hikko
+Links: https://hikko.jaybulb.com · https://apps.apple.com/app/id6785162492 · https://github.com/nulljosh/hikko
 
 Submit to: AlternativeTo, Indie Hackers products, Uneed, SaaSHub. Skip BetaList, macOS is already live. Skip dev.to, the AI-generation feature is a nice-to-have, not a novel technical mechanism.

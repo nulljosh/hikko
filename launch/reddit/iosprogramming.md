@@ -8,4 +8,4 @@ macOS and iOS are both live on the App Store. Free, with a $1 one-time Spark Pro
 
 Would take feedback on the sign-in flow once iOS clears review.
 
-https://hikko.heyitsmejosh.com
+https://hikko.jaybulb.com

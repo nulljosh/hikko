@@ -8,4 +8,4 @@ Plain JS, no build step, Cloudflare Pages and Supabase with RLS. Web, iOS, macOS
 
 Free, with a $1 one-time Spark Pro on the web for extras. Would love feedback on what's missing.
 
-https://hikko.heyitsmejosh.com
+https://hikko.jaybulb.com

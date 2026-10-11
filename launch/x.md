@@ -2,4 +2,4 @@
 
 2/ A cron worker also drops a fresh AI-generated idea every morning at 9am, so the feed is never empty. Filter by category, sort Hot or New, cluster related ideas into Idea Bases.
 
-3/ Web, iOS, macOS, watchOS. live on the Mac App Store and the iOS App Store. Free, Spark Pro is $1 once on the web: hikko.heyitsmejosh.com
+3/ Web, iOS, macOS, watchOS. live on the Mac App Store and the iOS App Store. Free, Spark Pro is $1 once on the web: hikko.jaybulb.com
