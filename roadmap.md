@@ -25,4 +25,3 @@ Only what is still open. History lives in git and `CHANGELOG.md`.
 
 ## Ingested 2026-10-16
 - [ ] Needs App Store icon and screenshot refresh: live 1.0.1 still shows the Spark-era screenshots. iOS 3.0 got an issue email 2026-10-05 and shows rejected. (screenshots: notes/attachments/2026-10-16/hikko-3.png, notes/attachments/2026-10-16/hikko-4.png)
-- [ ] Needs App Store icon and screenshot refresh: live 1.0.1 still shows the Spark-era screenshots. iOS 3.0 got an issue email 2026-10-05 and shows rejected. (screenshots: notes/attachments/2026-10-16/hikko-3.png, notes/attachments/2026-10-16/hikko-4.png)
