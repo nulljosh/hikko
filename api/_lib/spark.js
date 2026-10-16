@@ -1,4 +1,4 @@
-// Storage for hikko: the spark-api Worker (D1 for rows, KV for files) at api.heyitsmejosh.com.
+// Storage for hikko: the spark-api Worker (D1 for rows, KV for files) at api.jaybulb.com.
 // Every call here is server to server, so it carries the service key and skips the per-user rules;
 // the handlers in api/ check who the caller is before they get here.
 function clean(val) {
@@ -8,7 +8,7 @@ function clean(val) {
 
 function getSparkConfig() {
   return {
-    url: clean(process.env.SPARK_API_URL) || 'https://api.heyitsmejosh.com',
+    url: clean(process.env.SPARK_API_URL) || 'https://api.jaybulb.com',
     key: clean(process.env.SPARK_SERVICE_KEY)
   };
 }
