@@ -8,7 +8,7 @@ A jar of ideas. Post one, vote on others, and every morning a new one shows up o
 
 Each idea gets turned into a build spec and a step-by-step plan, server-side. Upvotes, comments, sign-in. Native apps for iOS, macOS and watchOS.
 
-[Live](https://hikko.heyitsmejosh.com)
+[Live](https://hikko.jaybulb.com)
 
 <img src="progress.svg" width="460">
 
