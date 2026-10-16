@@ -11,9 +11,9 @@ async function sendVerifyEmail(username, email) {
   const link = `${baseUrl()}/api/auth?action=verify-email&token=${token}`;
   await sendMail({
     to: email,
-    subject: 'Spark — Confirm your email',
-    text: `Welcome to Spark.\n\nConfirm your email address:\n${link}\n\nIf you didn't create this account, ignore this email.`,
-    html: `<p>Welcome to Spark.</p><p><a href="${link}">Confirm your email address</a></p><p>If you didn't create this account, ignore this email.</p>`,
+    subject: 'Hikko: confirm your email',
+    text: `Welcome to Hikko.\n\nConfirm your email address:\n${link}\n\nIf you didn't create this account, ignore this email.`,
+    html: `<p>Welcome to Hikko.</p><p><a href="${link}">Confirm your email address</a></p><p>If you didn't create this account, ignore this email.</p>`,
   });
 }
 

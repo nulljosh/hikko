@@ -10,7 +10,7 @@ async function sendResetEmail(email, token) {
   const resetLink = `${baseUrl()}/reset-password?token=${token}`;
   return sendMail({
     to: email,
-    subject: 'Spark — Password Reset',
+    subject: 'Hikko: reset your password',
     text: `You requested a password reset.\n\nClick here to reset your password:\n${resetLink}\n\nThis link expires in 1 hour.\n\nIf you didn't request this, ignore this email.`,
     html: `<p>You requested a password reset.</p><p><a href="${resetLink}">Click here to reset your password</a></p><p>This link expires in 1 hour.</p><p>If you didn't request this, ignore this email.</p>`,
   });
